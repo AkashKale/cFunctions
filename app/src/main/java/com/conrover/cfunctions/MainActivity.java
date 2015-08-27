@@ -1,23 +1,22 @@
 package com.conrover.cfunctions;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -33,6 +32,9 @@ public class MainActivity extends AppCompatActivity
     private CharSequence mTitle;
 
     ExpandableListView elvList; //Our ExpandableListView
+    ExpandableListAdapter listAdapter;
+    List<String> groupNames;
+    HashMap<String, List<String>> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,28 @@ public class MainActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         elvList=(ExpandableListView)findViewById(R.id.elvList);
-        
+        setupExpList();
+        listAdapter = new ExpandableListAdapter(this, groupNames, listItems);
+        elvList.setAdapter(listAdapter);
+    }
+    //setup Contents of ExpandableListView
+    private void setupExpList() {
+        groupNames = new ArrayList<String>();
+        listItems = new HashMap<String, List<String>>();
+
+        // Adding group names
+        groupNames.add("header1.h");
+        groupNames.add("header2.h");
+        groupNames.add("header3.h");
+
+        // Adding list items
+        List<String> functions = new ArrayList<String>();
+        for(int i=0;i<5;i++)
+            functions.add("function"+(i+1));
+
+        listItems.put(groupNames.get(0), functions); // Header, Child data
+        listItems.put(groupNames.get(1), functions);
+        listItems.put(groupNames.get(2), functions);
     }
 
     @Override
@@ -149,5 +172,4 @@ public class MainActivity extends AppCompatActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
