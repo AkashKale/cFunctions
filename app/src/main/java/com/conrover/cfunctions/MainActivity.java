@@ -1,6 +1,10 @@
 package com.conrover.cfunctions;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,13 +17,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.app.PendingIntent.getActivity;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -34,7 +52,8 @@ public class MainActivity extends AppCompatActivity
     ExpandableListView elvList; //Our ExpandableListView
     ExpandableListAdapter listAdapter;
     List<String> groupNames;
-    HashMap<String, List<String>> listItems;
+    HashMap<String,List<String>> listItems;
+    private Resources MainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +70,12 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         elvList=(ExpandableListView)findViewById(R.id.elvList);
         setupExpList();
+
+        new loadheaderfile().execute();
         listAdapter = new ExpandableListAdapter(this, groupNames, listItems);
         elvList.setAdapter(listAdapter);
+        elvList.setOnChildClickListener(this);
+        //elvList.setOnGroupClickListener(this);
     }
     //setup Contents of ExpandableListView
     private void setupExpList() {
@@ -60,20 +83,112 @@ public class MainActivity extends AppCompatActivity
         listItems = new HashMap<String, List<String>>();
 
         // Adding group names
-        groupNames.add("header1.h");
-        groupNames.add("header2.h");
+        groupNames.add("stdio.h.");
+        groupNames.add("conio.h");
         groupNames.add("header3.h");
 
         // Adding list items
         List<String> functions = new ArrayList<String>();
-        for(int i=0;i<5;i++)
+        for(int i=0;i<5;i++) {
             functions.add("function"+(i+1));
+        }
 
         listItems.put(groupNames.get(0), functions); // Header, Child data
         listItems.put(groupNames.get(1), functions);
         listItems.put(groupNames.get(2), functions);
+  }
+
+    public String loadJSONFromAsset() {
+        StringBuilder stringBuilder = new StringBuilder();
+            try {
+                InputStream is = getAssets().open("headerfileinfo.json");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+
+                bufferedReader.close();
+                return stringBuilder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+             return null;
     }
 
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return false;
+    }
+
+    public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
+        @Override
+        protected ArrayList<String> doInBackground(Void... params) {
+            ArrayList<String> temp=new ArrayList<String>();
+            try {
+                JSONObject obj = new JSONObject(loadJSONFromAsset());
+                JSONArray m_jArry = obj.getJSONArray("headfile");
+                //ArrayList<HashMap<String, String>> formList = new ArrayList<HashMap<String, String>>();
+                //HashMap<String, String> m_li;
+
+                for (int i = 0; i < m_jArry.length(); i++) {
+                    JSONObject jo_inside = m_jArry.getJSONObject(i);
+                   // Log.d("Details-->", jo_inside.getString("formule"));
+                    String name = jo_inside.getString("name");
+                    //String url_value = jo_inside.getString("url");
+
+                    //Add your values in your `ArrayList` as below:
+                    //m_li = new HashMap<String, String>();
+                    //m_li.put("formule", formula_value);
+                    //m_li.put("url", url_value);
+                    temp.add(name);
+                    //formList.add(m_li);
+                }
+                return temp;
+            } catch (JSONException e) {
+                //e.printStackTrace();
+                Toast.makeText(getBaseContext(),e.toString(),Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings) {
+            super.onPostExecute(strings);
+            groupNames=new ArrayList<String>(strings);
+            List<String> locallist=null;
+            List<String> functions = new ArrayList<String>();
+            for(int i=0;i<5;i++) {
+                functions.add("getc");
+            }
+            try{
+                JSONObject jobj=new JSONObject(loadJSONFromAsset());
+                JSONArray arr=jobj.getJSONArray("headfile");
+                JSONObject obj=arr.getJSONObject(2);
+                JSONArray inside_array=obj.getJSONArray("fun_name");
+                String[] temp=new String[2];
+                for(int i=0;i<inside_array.length();i++){
+                            JSONObject inside_obj= inside_array.getJSONObject(i);
+                            temp[i]=inside_obj.getString("fun");
+                }
+                locallist=new ArrayList<String>(Arrays.asList(temp));
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            for(int i=0;i<groupNames.size();i++)
+            {
+                if(i==2){
+                     listItems.put(groupNames.get(i),locallist);
+                }
+                else{
+                listItems.put(groupNames.get(i), functions);
+                 }// Header, Child data
+            }
+            listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
+            elvList.setAdapter(listAdapter);
+        }
+    }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -131,6 +246,22 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        if(groupPosition==2 && childPosition==1)
+        {
+            Intent i=new Intent(this,DetailsActivity.class);
+            Bundle b=new Bundle();
+            String grpname=(String)listAdapter.getGroup(groupPosition);
+            String funname=(String)listAdapter.getChild(groupPosition,childPosition);
+            b.putString("header",grpname);
+            b.putString("function_name",funname);
+            i.putExtras(b);
+            startActivity(i);
+        }
+        return true;
     }
 
     /**
