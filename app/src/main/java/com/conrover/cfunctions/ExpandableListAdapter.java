@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.sql.Array;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     private Context _context;
     private List<String> _groupNames; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listItems;
+    private HashMap<String,List<String>> _listItems;
 
     public ExpandableListAdapter(Context context, List<String> groupNames,
                                  HashMap<String, List<String>> listItems) {
@@ -102,6 +103,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         Log.e("Child","Working");
         return convertView;
     }
+
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;

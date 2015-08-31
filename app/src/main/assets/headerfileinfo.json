@@ -1,0 +1,45 @@
+{
+"headfile": [
+{
+"name": "assert.h"
+},
+{
+"name": "ctype.h"
+},
+{
+"name": "locale.h",
+"fun_name": [
+{
+"fun": "localeconv"
+},
+{
+"fun": "setlocale"
+}
+]
+},
+{
+"name": "math.h"
+},
+{
+"name": "setjmp.h"
+},
+{
+"name": "signal.h"
+},
+{
+"name": "stdarg.h"
+},
+{
+"name": "stdio.h"
+},
+{
+"name": "stdlib.h"
+},
+{
+"name": "string.h"
+},
+{
+"name": "time.h"
+}
+]
+}
