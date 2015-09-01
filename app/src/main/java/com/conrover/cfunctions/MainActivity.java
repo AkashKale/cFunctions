@@ -155,36 +155,39 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
             super.onPostExecute(strings);
-            groupNames=new ArrayList<String>(strings);
-            List<String> locallist=null;
+            groupNames = new ArrayList<String>(strings);
+            List<String> locallist = null;
             List<String> functions = new ArrayList<String>();
-            for(int i=0;i<5;i++) {
+            for (int i = 0; i < 5; i++) {
                 functions.add("getc");
             }
-            try{
-                JSONObject jobj=new JSONObject(loadJSONFromAsset());
-                JSONArray arr=jobj.getJSONArray("headfile");
-                JSONObject obj=arr.getJSONObject(2);
-                JSONArray inside_array=obj.getJSONArray("fun_name");
-                String[] temp=new String[2];
-                for(int i=0;i<inside_array.length();i++){
-                            JSONObject inside_obj= inside_array.getJSONObject(i);
-                            temp[i]=inside_obj.getString("fun");
+            try {
+                int j = 0;
+                JSONObject jobj = new JSONObject(loadJSONFromAsset());
+                JSONArray arr = jobj.getJSONArray("headfile");
+                while (j < arr.length()) {
+                    JSONObject obj = arr.getJSONObject(j);
+                    JSONArray inside_array = obj.getJSONArray("fun_name");
+                    String[] temp = new String[inside_array.length()];
+                    for (int i = 0; i < inside_array.length(); i++) {
+                        JSONObject inside_obj = inside_array.getJSONObject(i);
+                        temp[i] = inside_obj.getString("fun");
+                    }
+                    locallist = new ArrayList<String>(Arrays.asList(temp));
+
+                    //for (int i = 0; i < groupNames.size(); i++) {
+                        //if(i==2){
+                        listItems.put(groupNames.get(j), locallist);
+                    //}
+                    j++;
                 }
-                locallist=new ArrayList<String>(Arrays.asList(temp));
-                }catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
-            for(int i=0;i<groupNames.size();i++)
-            {
-                if(i==2){
-                     listItems.put(groupNames.get(i),locallist);
-                }
-                else{
-                listItems.put(groupNames.get(i), functions);
-                 }// Header, Child data
+                //else{
+                //listItems.put(groupNames.get(i), functions);
+                // }// Header, Child data
             }
+            catch(Exception e){
+                e.printStackTrace();
+        }
             listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
             elvList.setAdapter(listAdapter);
         }
