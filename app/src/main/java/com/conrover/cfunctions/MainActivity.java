@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity
     private CharSequence mTitle;
 
     ExpandableListView elvList; //Our ExpandableListView
-    ExpandableListAdapter listAdapter;
-    List<String> groupNames;
-    HashMap<String,List<String>> listItems;
+    ExpandableListAdapter listAdapter; //Adapter to add items to elvList
+    List<String> groupNames;    //titles of each section
+    HashMap<String,List<String>> listItems; //contents of elvList
     private Resources MainActivity;
 
     @Override
