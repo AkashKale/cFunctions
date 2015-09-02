@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.global, menu);
             restoreActionBar();
             return true;
         }
@@ -244,8 +244,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        if(groupPosition==2 && childPosition==1)
-        {
+        //if(groupPosition==2 && childPosition==1)
+        //{
             Intent i=new Intent(this,DetailsActivity.class);
             Bundle b=new Bundle();
             String grpname=(String)listAdapter.getGroup(groupPosition);
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity
             b.putString("function_name",funname);
             i.putExtras(b);
             startActivity(i);
-        }
+       // }
         return true;
     }
 
