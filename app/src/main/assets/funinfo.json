@@ -1,0 +1,18 @@
+{
+"funlist": [
+{
+"funname": "strcat",
+"header": "#include <string.h>",
+"desc": "In the C Programming Language, the strcat function appends a copy of the string pointed to by s2 to the end of the string pointed to by s1. It returns a pointer to s1 where the resulting concatenated string resides.",
+"returns": "The strcat function returns a pointer to s1 (where the resulting concatenated string resides).",
+"syntax": "char *strcat(char *s1, const char *s2)",
+"parameters": "s1\n
+                   A pointer to a string that will be modified. s2 will be copied to the end of s1.\ns2\n
+                   A pointer to a string that will be appended to the end of s1. "
+},
+{
+"funname": "strcati",
+"returns": "data"
+}
+]
+}
