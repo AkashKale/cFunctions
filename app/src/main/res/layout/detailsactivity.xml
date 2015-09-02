@@ -1,113 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
-
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/detailsActivityTextViewTitle"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Header"
-            />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
         <TextView
+            style="@style/detailsActivityTextViewData"
+            android:id="@+id/tvHeaderFile"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvHeaderFile" />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewTitle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Syntax"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-          />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewData"
+            android:id="@+id/tvSyntax"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvSyntax" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewTitle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Parameters/Arguments"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewData"
+            android:id="@+id/tvParameters"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvParameters" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewTitle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Returns"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewData"
+            android:id="@+id/tvReturns"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvReturns" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewTitle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            style="@style/detailsActivityTextViewData"
+            android:id="@+id/tvDesc"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvDesc" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </LinearLayout>
-
-
-</LinearLayout>
 </ScrollView>

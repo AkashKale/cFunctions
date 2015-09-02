@@ -11,4 +11,20 @@
         <item name="divider">@color/divider</item>
     </style>
 
+    <style name="detailsActivityTextViewTitle" parent="Theme.AppCompat.Light">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textColor">#616161</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="detailsActivityTextViewData" parent="Theme.AppCompat.Light">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@drawable/layout_border</item>
+    </style>
 </resources>
