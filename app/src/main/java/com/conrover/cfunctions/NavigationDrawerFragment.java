@@ -56,6 +56,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private ExpandableListView mDrawerExpListView;
+
     ExpandableListAdapter expListAdapter;
     List<String> groupNames;
     HashMap<String,List<String>> listItems;
@@ -104,6 +105,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
         setupExpList();
         expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
         mDrawerExpListView.setAdapter(expListAdapter);

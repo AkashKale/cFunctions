@@ -28,7 +28,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         this._context = context;
         this._groupNames = groupNames;
         this._listItems = listItems;
-        Log.e("Constructor", "Working");
+        //Log.e("Constructor", "Working");
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
                 .findViewById(R.id.tvListGroup);
         tvListGroup.setTypeface(null, Typeface.BOLD);
         tvListGroup.setText(headerTitle);
-        Log.e("Header", "Working"+tvListGroup.getText());
+        //Log.e("Header", "Working"+tvListGroup.getText());
         return convertView;
     }
     @Override

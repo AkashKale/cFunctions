@@ -13,7 +13,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/elvList"
             android:divider="@color/divider"
-            android:dividerHeight="1dp"
+            android:dividerHeight="0.1dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:paddingLeft="16dp"
