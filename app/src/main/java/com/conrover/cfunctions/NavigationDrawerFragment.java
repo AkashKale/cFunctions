@@ -1,5 +1,8 @@
 package com.conrover.cfunctions;
 
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -20,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,7 +36,7 @@ import java.util.List;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -65,7 +70,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-
+    SharedPreferences sp;
     public NavigationDrawerFragment() {
     }
 
@@ -75,7 +80,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
@@ -85,6 +90,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+        //int position=Integer.parseInt(sp.getString("position","0"));
+        //LinearLayout linearLayout=(LinearLayout)mDrawerExpListView.getChildAt(position+1);
+        //TextView tvBold=(TextView)linearLayout.getChildAt(0);
+        //tvBold.setTypeface(null, Typeface.BOLD);
+
     }
 
     @Override
@@ -99,6 +109,7 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerExpListView = (ExpandableListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+        mDrawerExpListView.setOnChildClickListener(this);
         mDrawerExpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -110,6 +121,7 @@ public class NavigationDrawerFragment extends Fragment {
         expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
         mDrawerExpListView.setAdapter(expListAdapter);
         mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return mDrawerExpListView;
     }
 
@@ -279,6 +291,49 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+        //ExpandableListView elv;
+        TextView tvClickedView=(TextView)view.findViewById(R.id.tvListItem);
+        TextView tvNotClicked;
+        LinearLayout linearLayout;
+        SharedPreferences.Editor editor=sp.edit();
+        switch(childPosition)
+        {
+            case 0:
+                linearLayout=(LinearLayout)expandableListView.getChildAt(2);
+                tvNotClicked=(TextView)linearLayout.getChildAt(0);
+                tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                tvClickedView.setTypeface(null, Typeface.BOLD);
+                editor.putString("position", "0");
+                editor.commit();
+                break;
+            case 1:
+                linearLayout=(LinearLayout)expandableListView.getChildAt(1);
+                tvNotClicked=(TextView)linearLayout.getChildAt(0);
+                tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                tvClickedView.setTypeface(null, Typeface.BOLD);
+                editor.putString("position", "1");
+                editor.commit();
+                break;
+        }
+        startActivity(new Intent("android.intent.action.MainActivity"));
+        getActivity().finish();
+        //getView().invalidate();
+        //getActivity().recreate();
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment fragment=getTargetFragment();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .detach(fragment)
+                .attach(fragment)
+                .commit();*/
+        return true;
     }
 
     /**

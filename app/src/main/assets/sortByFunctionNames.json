@@ -1,0 +1,528 @@
+{
+  "alphabets": [
+    {
+      "name": "A",
+      "fun_name": [
+        {
+          "fun": "abort"
+        },
+        {
+          "fun": "abs"
+        },
+        {
+          "fun": "acos"
+        },
+        {
+          "fun": "asctime"
+        },
+        {
+          "fun": "asin"
+        },
+        {
+          "fun": "assert"
+        },
+        {
+          "fun": "atan"
+        },
+        {
+          "fun": "atan2"
+        },
+        {
+          "fun": "atexit"
+        },
+        {
+          "fun": "atof"
+        },
+        {
+          "fun": "atoi"
+        },
+        {
+          "fun": "atol"
+        }
+      ]
+    },
+    {
+      "name": "B",
+      "fun_name": [
+        {
+          "fun": "bsearch"
+        }
+      ]
+    },
+    {
+      "name": "C",
+      "fun_name": [
+        {
+          "fun": "calloc"
+        },
+        {
+          "fun": "ceil"
+        },
+        {
+          "fun": "clearerr"
+        },
+        {
+          "fun": "clock"
+        },
+        {
+          "fun": "cos"
+        },
+        {
+          "fun": "cosh"
+        },
+        {
+          "fun": "ctime"
+        }
+      ]
+    },
+    {
+      "name": "D",
+      "fun_name": [
+        {
+          "fun": "difftime"
+        },
+        {
+          "fun": "div"
+        }
+      ]
+    },
+    {
+      "name": "E",
+      "fun_name": [
+        {
+          "fun": "exit"
+        },
+        {
+          "fun": "exp"
+        }
+      ]
+    },
+    {
+      "name": "F",
+      "fun_name": [
+        {
+          "fun": "fabs"
+        },
+        {
+          "fun": "fclose"
+        },
+        {
+          "fun": "feof"
+        },
+        {
+          "fun": "ferror"
+        },
+        {
+          "fun": "fflush"
+        },
+        {
+          "fun": "fgetc"
+        },
+        {
+          "fun": "fgetpos"
+        },
+        {
+          "fun": "fgets"
+        },
+        {
+          "fun": "floor"
+        },
+        {
+          "fun": "fmod"
+        },
+        {
+          "fun": "fopen"
+        },
+        {
+          "fun": "fprintf"
+        },
+        {
+          "fun": "fputc"
+        },
+        {
+          "fun": "fputs"
+        },
+        {
+          "fun": "fread"
+        },
+        {
+          "fun": "free"
+        },
+        {
+          "fun": "freopen"
+        },
+        {
+          "fun": "frexp"
+        },
+        {
+          "fun": "fscanf"
+        },
+        {
+          "fun": "fseek"
+        },
+        {
+          "fun": "fsetpos"
+        },
+        {
+          "fun": "ftell"
+        },
+        {
+          "fun": "fwrite"
+        }
+      ]
+    },
+    {
+      "name": "G",
+      "fun_name": [
+        {
+          "fun": "getc"
+        },
+        {
+          "fun": "getchar"
+        },
+        {
+          "fun": "getenv"
+        },
+        {
+          "fun": "gets"
+        },
+        {
+          "fun": "gmtime"
+        }
+      ]
+    },
+    {
+      "name": "I",
+      "fun_name": [
+        {
+          "fun": "isalnum"
+        },
+        {
+          "fun": "isalpha"
+        },
+        {
+          "fun": "iscntrl"
+        },
+        {
+          "fun": "isdigit"
+        },
+        {
+          "fun": "isgraph"
+        },
+        {
+          "fun": "islower"
+        },
+        {
+          "fun": "isprint"
+        },
+        {
+          "fun": "ispunct"
+        },
+        {
+          "fun": "isspace"
+        },
+        {
+          "fun": "isxdigit"
+        }
+      ]
+    },
+    {
+      "name": "L",
+      "fun_name": [
+        {
+          "fun": "labs"
+        },
+        {
+          "fun": "ldexp"
+        },
+        {
+          "fun": "ldiv"
+        },
+        {
+          "fun": "localeconv"
+        },
+        {
+          "fun": "localtime"
+        },
+        {
+          "fun": "log"
+        },
+        {
+          "fun": "log10"
+        },
+        {
+          "fun": "longjump"
+        }
+      ]
+    },
+    {
+      "name": "M",
+      "fun_name": [
+        {
+          "fun": "malloc"
+        },
+        {
+          "fun": "mblen"
+        },
+        {
+          "fun": "mbstowcs"
+        },
+        {
+          "fun": "mbtowc"
+        },
+        {
+          "fun": "memchr"
+        },
+        {
+          "fun": "memcmp"
+        },
+        {
+          "fun": "memcpy"
+        },
+        {
+          "fun": "memmove"
+        },
+        {
+          "fun": "memset"
+        },
+        {
+          "fun": "mktime"
+        },
+        {
+          "fun": "modf"
+        }
+      ]
+    },
+    {
+      "name": "P",
+      "fun_name": [
+        {
+          "fun": "perror"
+        },
+        {
+          "fun": "pow"
+        },
+        {
+          "fun": "printf"
+        },
+        {
+          "fun": "putc"
+        },
+        {
+          "fun": "putchar"
+        },
+        {
+          "fun": "puts"
+        }
+      ]
+    },
+    {
+      "name": "Q",
+      "fun_name": [
+        {
+          "fun": "qsort"
+        }
+      ]
+    },
+    {
+      "name": "R",
+      "fun_name": [
+        {
+          "fun": "raise"
+        },
+        {
+          "fun": "rand"
+        },
+        {
+          "fun": "realloc"
+        },
+        {
+          "fun": "remove"
+        },
+        {
+          "fun": "rename"
+        },
+        {
+          "fun": "rewind"
+        }
+      ]
+    },
+    {
+      "name": "S",
+      "fun_name": [
+        {
+          "fun": "scanf"
+        },{
+          "fun": "setbuf"
+        },
+        {
+          "fun": "setjmp"
+        },
+        {
+          "fun": "setlocale"
+        },
+        {
+          "fun": "setvbuf"
+        },
+        {
+          "fun": "signal"
+        },
+        {
+          "fun": "sin"
+        },
+        {
+          "fun": "sinh"
+        },
+        {
+          "fun": "sprintf"
+        },
+        {
+          "fun": "sqrt"
+        },
+        {
+          "fun": "srand"
+        },
+        {
+          "fun": "sscanf"
+        },
+        {
+          "fun": "strcat"
+        },
+        {
+          "fun": "strchr"
+        },
+        {
+          "fun": "strcmp"
+        },
+        {
+          "fun": "strcoll"
+        },
+        {
+          "fun": "strcpy"
+        },
+        {
+          "fun": "strcspn"
+        },
+        {
+          "fun": "strerror"
+        },
+        {
+          "fun": "strftime"
+        },
+        {
+          "fun": "strlen"
+        },
+        {
+          "fun": "strncat"
+        },
+        {
+          "fun": "strncmp"
+        },
+        {
+          "fun": "strncpy"
+        },
+        {
+          "fun": "strpbrk"
+        },
+        {
+          "fun": "strrchr"
+        },
+        {
+          "fun": "strspn"
+        },
+        {
+          "fun": "strstr"
+        },
+        {
+          "fun": "strtod"
+        },
+        {
+          "fun": "strtok"
+        },
+        {
+          "fun": "strtol"
+        },
+        {
+          "fun": "strtoll"
+        },
+        {
+          "fun": "strtoul"
+        },
+        {
+          "fun": "strxfrm"
+        },
+        {
+          "fun": "system"
+        }
+      ]
+    },
+    {
+      "name": "T",
+      "fun_name": [
+        {
+          "fun": "tan"
+        },
+        {
+          "fun": "tanh"
+        },
+        {
+          "fun": "time"
+        },
+        {
+          "fun": "tmpfile"
+        },
+        {
+          "fun": "tmpnam"
+        },
+        {
+          "fun": "tolower"
+        },
+        {
+          "fun": "toupper"
+        }
+      ]
+    },
+    {
+      "name": "U",
+      "fun_name": [
+        {
+          "fun": "ungetc"
+        }
+      ]
+    },
+    {
+      "name": "V",
+      "fun_name": [
+        {
+          "fun": "va_arg"
+        },
+        {
+          "fun": "va_end"
+        },
+        {
+          "fun": "va_start"
+        },
+        {
+          "fun": "vfprintf"
+        },
+        {
+          "fun": "vprintf"
+        },
+        {
+          "fun": "vsprintf"
+        }
+      ]
+    },
+    {
+      "name": "W",
+      "fun_name": [
+        {
+          "fun": "wcstombs"
+        },
+        {
+          "fun": "wctomb"
+        }
+      ]
+    }
+  ]
+}

@@ -2,15 +2,18 @@ package com.conrover.cfunctions;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,12 +51,13 @@ public class MainActivity extends AppCompatActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-
+    String position;
     ExpandableListView elvList; //Our ExpandableListView
     ExpandableListAdapter listAdapter; //Adapter to add items to elvList
     List<String> groupNames;    //titles of each section
     HashMap<String,List<String>> listItems; //contents of elvList
     private Resources MainActivity;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         elvList.setAdapter(listAdapter);
         elvList.setOnChildClickListener(this);
         //elvList.setOnGroupClickListener(this);
+
     }
     //setup Contents of ExpandableListView
     private void setupExpList() {
@@ -101,7 +106,18 @@ public class MainActivity extends AppCompatActivity
     public String loadJSONFromAsset() {
         StringBuilder stringBuilder = new StringBuilder();
             try {
-                InputStream is = getAssets().open("headerfileinfo.json");
+                sp= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                position=sp.getString("position", "0");
+                Log.e("Position",position+"");
+                InputStream is;
+                if(position.equals("0"))
+                {
+                    is = getAssets().open("headerfileinfo.json");
+                }
+                else
+                {
+                    is = getAssets().open("sortByFunctionNames.json");
+                }
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
@@ -127,7 +143,13 @@ public class MainActivity extends AppCompatActivity
             ArrayList<String> temp=new ArrayList<String>();
             try {
                 JSONObject obj = new JSONObject(loadJSONFromAsset());
-                JSONArray m_jArry = obj.getJSONArray("headfile");
+                JSONArray m_jArry;
+                if(position.equals("0")) {
+                    m_jArry = obj.getJSONArray("headfile");
+                }
+                else{
+                    m_jArry = obj.getJSONArray("alphabets");
+                }
                 //ArrayList<HashMap<String, String>> formList = new ArrayList<HashMap<String, String>>();
                 //HashMap<String, String> m_li;
 
@@ -147,7 +169,7 @@ public class MainActivity extends AppCompatActivity
                 return temp;
             } catch (JSONException e) {
                 //e.printStackTrace();
-                Toast.makeText(getBaseContext(),e.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -164,7 +186,13 @@ public class MainActivity extends AppCompatActivity
             try {
                 int j = 0;
                 JSONObject jobj = new JSONObject(loadJSONFromAsset());
-                JSONArray arr = jobj.getJSONArray("headfile");
+                JSONArray arr;
+                if(position.equals("0")) {
+                    arr = jobj.getJSONArray("headfile");
+                }
+                else{
+                    arr = jobj.getJSONArray("alphabets");
+                }
                 while (j < arr.length()) {
                     JSONObject obj = arr.getJSONObject(j);
                     JSONArray inside_array = obj.getJSONArray("fun_name");
@@ -195,6 +223,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        Log.e("Function called","true");
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))

@@ -8,9 +8,269 @@
 "syntax": "char *strcat(char *s1, const char *s2)",
 "parameters": "s1: A pointer to a string that will be modified. s2 will be copied to the end of s1.\n\ns2: A pointer to a string that will be appended to the end of s1. "
 },
-{
-"funname": "strcati",
-"returns": "data"
-}
+  {
+    "funname": "fabs",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the fabs function returns the absolute value of a floating-point number.",
+    "returns": "The fabs function returns the absolute value of a floating-point number represented by x.",
+    "syntax": "double fabs(double x)",
+    "parameters": "x: The value to convert to an absolute value.  "
+  },
+  {
+    "funname": "ceil",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the ceil function returns the smallest integer that is greater than or equal to x (ie: rounds up the nearest integer).",
+    "returns": "The ceil function returns the smallest integer that is greater than or equal to x.",
+    "syntax": "double ceil(double x)",
+    "parameters": "x: The value to round up to the nearest integer."
+  },
+  {
+    "funname": "floor",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the floor function returns the largest integer that is smaller than or equal to x (ie: rounds downs the nearest integer).",
+    "returns": "The floor function returns the largest integer that is smaller than or equal to x.",
+    "syntax": "double floor(double x);",
+    "parameters": "x: The value to round down to the nearest integer. "
+  },
+  {
+    "funname": "fmod",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the fmod function returns the remainder when x is divided by y.",
+    "returns": "The fmod function returns the remainder when x is divided by y.",
+    "syntax": "double fmod(double x, double y)",
+    "parameters": "x is divided by y. "
+  },
+  {
+    "funname": "ldexp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the ldexp function combines a fraction and an exponent into a floating-point value.",
+    "returns": "The ldexp function returns a floating-point value combining a fraction and an exponent based on the equation: fraction x 2 exponent",
+    "syntax": "double ldexp(double fraction, int exp)",
+    "parameters": "fraction: The fractional part of the value.\n\nexp: The exponent part of the value. "
+  },
+  {
+    "funname": "frexp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the frexp function splits a floating-point value into a fraction and an exponent. The fraction is returned by the frexp function and the exponent is stored in the exp variable.",
+    "returns": "The frexp function returns the fractional part of value based on the equation: fraction x 2 exponent.The fraction must be greater than or equal to 0.5 and less than 1, or the fraction must be equal to 0.",
+    "syntax": "double frexp(double value, int *exp)",
+    "parameters": "value: The floating-point value to split into a fraction and an exponent.\n\nexp: A pointer to an integer variable where the exponent will be stored. "
+  },
+  {
+    "funname": "exp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the exp function returns e raised to the power of x.",
+    "returns": "The exp function returns the result of e raised to the power of x.",
+    "syntax": "double exp(double x)",
+    "parameters": "x: The value used in the calculation where e is raised to the power of x. If the magnitude of x is too large, the exp function will return a range error. "
+  },
+  {
+    "funname": "modf",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the modf function splits a floating-point value into an integer and a fractional part. The fraction is returned by the modf function and the integer part is stored in the iptr variable.",
+    "returns": "The modf function returns the fractional part of value.",
+    "syntax": "double modf(double value, double *iptr)",
+    "parameters": "value: The floating-point value to split into an integer and a fractional part.\n\niptr: A pointer to a variable where the integer part will be stored. "
+  },
+  {
+    "funname": "log10",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the log10 function returns the logarithm of x to the base of 10.",
+    "returns": "The log10 function returns the logarithm of x to the base of 10.",
+    "syntax": "double log10(double x)",
+    "parameters": "x: A value used in the calculation of the logarithm of x to the base of 10. If x is negative, the log10 function will return a domain error. If x is zero, the log10 function will return a range error. "
+  },
+  {
+    "funname": "log",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the log function returns the logarithm of x to the base of e.",
+    "returns": "The log function returns the logarithm of x to the base of e.",
+    "syntax": "double log(double x)",
+    "parameters": "x: A value used in the calculation of the logarithm of x to the base of e. If x is negative, the log function will return a domain error. If x is zero, the log function will return a range error.  "
+  },
+  {
+    "funname": "pow",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the pow function returns x raised to the power of y.",
+    "returns": "The pow function returns x raised to the power of y. If x is negative and y is not an integer value, the pow function will return a domain error.",
+    "syntax": "double pow(double x, double y)",
+    "parameters": "x: A value used in the calculation where x is raised to the power of y.\n\ny: A value used in the calculation where x is raised to the power of y.  "
+  },
+  {
+    "funname": "sqrt",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sqrt function returns the square root of x",
+    "returns": "The sqrt function returns the square root of x. If x is negative, the sqrt function will return a domain error.",
+    "syntax": "double sqrt(double x)",
+    "parameters": "x: A value used when calculating the square root of x. "
+  },
+  {
+    "funname": "atan2",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the atan2 function returns the arc tangent of y / x.",
+    "returns": "The atan2 function returns the arc tangent of y / x. It will return a value between -π and π. If x and y are both equal to 0, the atan2 function will return a domain error.",
+    "syntax": "double atan2(double y, double x)",
+    "parameters": "x: The parameter when calculating the arc tangent of y / x.\n\ny: The parameter when calculating the arc tangent of y / x. "
+  },
+  {
+    "funname": "acos",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the acos function returns the arc cosine of x.",
+    "returns": "The acos function returns the arc cosine of a number represented by x. It will return a value between 0 and π.",
+    "syntax": "double acos(double x)",
+    "parameters": "x: A value between -1 and 1. A domain error will occur if x is not between -1 and 1.  "
+  },
+  {
+    "funname": "asin",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the asin function returns the arc sine of x.",
+    "returns": "The asin function returns the arc sine of a number represented by x. It will return a value between -π/2 and π/2.",
+    "syntax": "double asin(double x)",
+    "parameters": "x: A value between -1 and 1. A domain error will occur if x is not between -1 and 1."
+  },
+  {
+    "funname": "atan",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the atan function returns the arc tangent of x.",
+    "returns": "The atan function returns the arc tangent of a number represented by x. It will return a value between -π/2 and π/2.",
+    "syntax": "double atan(double x)",
+    "parameters": "x: The value used to calculate the arc tangent.  "
+  },
+  {
+    "funname": "cos",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the cos function returns the cosine of x.",
+    "returns": "The cos function returns the cosine of x, measured in radians.",
+    "syntax": "double cos(double x)",
+    "parameters": "x: A value expressed in radians (not degrees). "
+  },
+  {
+    "funname": "sin",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sin function returns the sine of x.",
+    "returns": "The sin function returns the sine of x, measured in radians.",
+    "syntax": "double sin(double x)",
+    "parameters": "x: A value expressed in radians (not degrees). "
+  },
+  {
+    "funname": "tanh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the tanh function returns the hyperbolic tangent of x.",
+    "returns": "The tanh function returns the hyperbolic tangent of x.",
+    "syntax": "double tanh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees).  "
+  },
+  {
+    "funname": "sinh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sinh function returns the hyperbolic sine of x.",
+    "returns": "The sinh function returns the hyperbolic sine of x. If the magnitude of x is too large, the sinh function will return a range error.",
+    "syntax": "double sinh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees).  "
+  },
+  {
+    "funname": "cosh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the cosh function returns the hyperbolic cosine of x.",
+    "returns": "The cosh function returns the hyperbolic cosine of x. If the magnitude of x is too large, the cosh function will return a range error.",
+    "syntax": "double cosh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees)."
+  },
+  {
+    "funname": "tolower",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the tolower function returns c as a lowercase letter.",
+    "returns": "The tolower function returns c as a lowercase letter. If c is already lowercase, the tolower function returns c unchanged.",
+    "syntax": "int tolower(int c)",
+    "parameters": "c: The value to convert to a lowercase letter.  "
+  },
+  {
+    "funname": "toupper",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the toupper function returns c as an uppercase letter.",
+    "returns": "The toupper function returns c as an uppercase letter. If c is already uppercase, the toupper function returns c unchanged.",
+    "syntax": "int toupper(int c)",
+    "parameters": "c: The value to convert to an uppercase letter.  "
+  },
+  {
+    "funname": "isalnum",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isalnum function tests whether c is alphanumeric.",
+    "returns": "The isalnum function returns a nonzero value if c is alphanumeric and returns zero if c is not alphanumeric.",
+    "syntax": "int isalnum(int c)",
+    "parameters": "c: The value to test whether it is alphanumeric.  "
+  },
+  {
+    "funname": "isalpha",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isalpha function tests whether c is alphabetic.",
+    "returns": "The isalpha function returns a nonzero value if c is alphabetic and returns zero if c is not alphabetic.",
+    "syntax": "int isalpha(int c)",
+    "parameters": "c: The value to test whether it is alphabetic. "
+  },
+  {
+    "funname": "iscntrl",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the iscntrl function tests whether c is a control character.",
+    "returns": "The iscntrl function returns a nonzero value if c is a control character and returns zero if c is not a control character.",
+    "syntax": "int iscntrl(int c)",
+    "parameters": "c: The value to test whether it is a control character. "
+  },
+  {
+    "funname": "isdigit",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isdigit function tests whether c is a digit.",
+    "returns": "The isdigit function returns a nonzero value if c is a digit and returns zero if c is not a digit.",
+    "syntax": "int isdigit(int c)",
+    "parameters": "c: The value to test whether it is a digit. "
+  },
+  {
+    "funname": "isgraph",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isgraph function tests whether c is a printing character, but does not include a space. If you wish to include a space, try using the isprint function.",
+    "returns": "The isgraph function returns a nonzero value if c is a printing character and returns zero if c is not a printing character.",
+    "syntax": "int isgraph(int c)",
+    "parameters": "c: The value to test whether it is a printing character, but does not include a space. "
+  },
+  {
+    "funname": "islower",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the islower function tests whether c is a lowercase letter.",
+    "returns": "The islower function returns a nonzero value if c is a lowercase letter and returns zero if c is not a lowercase letter.",
+    "syntax": "int islower(int c)",
+    "parameters": "c: The value to test whether it is a lowercase letter. "
+  },
+  {
+    "funname": "isprint",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isprint function tests whether c is a printing character and it does include a space. If you do not wish to include a space, try using the isgraph function.",
+    "returns": "The isprint function returns a nonzero value if c is a printing character and returns zero if c is not a printing character.",
+    "syntax": "int isprint(int c)",
+    "parameters": "c: The value to test whether it is a printing character and it does include a space. "
+  },
+  {
+    "funname": "ispunct",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the ispunct function tests whether c is a punctuation character. Punctuation characters are considered to be all printing characters except alphanumeric characters and space.",
+    "returns": "The ispunct function returns a nonzero value if c is a punctuation character and returns zero if c is not a punctuation character.",
+    "syntax": "int ispunct(int c)",
+    "parameters": "c: The value to test whether it is a punctuation character. Punctuation characters are considered to be all printing characters except alphanumeric characters and space. "
+  },
+  {
+    "funname": "isupper",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isupper function tests whether c is an uppercase letter.",
+    "returns": "The isupper function returns a nonzero value if c is an uppercase letter and returns zero if c is not an uppercase letter.",
+    "syntax": "int isupper(int c)",
+    "parameters": "c: The value to test whether it is an uppercase letter. "
+  },
+  {
+    "funname": "isxdigit",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isxdigit function tests whether c is a hexadecimal digit.",
+    "returns": "The isxdigit function returns a nonzero value if c is a hexadecimal digit and returns zero if c is not a hexadecimal digit.",
+    "syntax": "int isxdigit(int c)",
+    "parameters": "c: The value to test whether it is a hexadecimal digit.  "
+  }
 ]
 }
