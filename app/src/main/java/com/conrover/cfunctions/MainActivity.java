@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
             try {
                 sp= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 position=sp.getString("position", "0");
-                Log.e("Position",position+"");
+                //Log.e("Position",position+"");
                 InputStream is;
                 if(position.equals("0"))
                 {
@@ -138,8 +138,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
+
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
+            //Log.e("Background","running");
             ArrayList<String> temp=new ArrayList<String>();
             try {
                 JSONObject obj = new JSONObject(loadJSONFromAsset());
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
             super.onPostExecute(strings);
+            //Log.e("PostExecute", "running");
             groupNames = new ArrayList<String>(strings);
             List<String> locallist = null;
             List<String> functions = new ArrayList<String>();
@@ -223,14 +226,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        Log.e("Function called","true");
+        Log.e("ItemSelected", "True");
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
+
     }
 
     public void onSectionAttached(int number) {
+        new loadheaderfile().execute();
         switch (number) {
             case 1:
                 mTitle = getString(R.string.app_name);

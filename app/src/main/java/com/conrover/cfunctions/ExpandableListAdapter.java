@@ -100,7 +100,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
                 .findViewById(R.id.tvListItem);
 
         tvListItem.setText(childText);
-        Log.e("Child","Working");
+        //Log.e("Child","Working");
         return convertView;
     }
 

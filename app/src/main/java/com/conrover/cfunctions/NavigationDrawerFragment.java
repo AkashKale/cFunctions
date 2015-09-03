@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,6 +114,7 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
         mDrawerExpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("Position clicked", position + "");
                 selectItem(position);
             }
         });
@@ -183,6 +185,9 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                Log.e("Drawer","opened");
+                drawerView.bringToFront();
+                mDrawerLayout.requestLayout();
                 if (!isAdded()) {
                     return;
                 }
@@ -226,6 +231,7 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
+            Log.e("callback","true");
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
     }
@@ -319,8 +325,9 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
                 editor.commit();
                 break;
         }
-        startActivity(new Intent("android.intent.action.MainActivity"));
-        getActivity().finish();
+        selectItem(0);
+        //startActivity(new Intent("android.intent.action.MainActivity"));
+        //getActivity().finish();
         //getView().invalidate();
         //getActivity().recreate();
         /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
