@@ -11,4 +11,8 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+    <array name="sort_types">
+        <item>Header Files</item>
+        <item>Function Names</item>
+    </array>
 </resources>

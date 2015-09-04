@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,15 @@ public class DetailsActivity extends ActionBarActivity {
         tvDesc= (TextView) findViewById(R.id.tvDesc);
         new loadfunction().execute();
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.onBackPressed();
+                break;
+        }
+        return true;
     }
     public String loadJSONFromAsset() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -94,7 +104,7 @@ public class DetailsActivity extends ActionBarActivity {
                 return ret;
             } catch (JSONException e) {
                 e.printStackTrace();
-                tvHeaderFile.setText("heeeee");
+                //tvHeaderFile.setText("heeeee");
                 //Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
             }
             return ret;
