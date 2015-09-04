@@ -1,6 +1,7 @@
 package com.conrover.cfunctions;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -227,6 +228,7 @@ public class MainActivity extends AppCompatActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         Log.e("ItemSelected", "True");
+        new loadheaderfile().execute();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -235,7 +237,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onSectionAttached(int number) {
-        new loadheaderfile().execute();
         switch (number) {
             case 1:
                 mTitle = getString(R.string.app_name);
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity
             b.putString("header",grpname);
             b.putString("function_name",funname);
             i.putExtras(b);
-            startActivity(i);
+            startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
        // }
         return true;
     }

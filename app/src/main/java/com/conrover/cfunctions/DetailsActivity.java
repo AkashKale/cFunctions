@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import java.io.InputStreamReader;
 /**
  * Created by sony on 29/08/2015.
  */
-public class DetailsActivity extends Activity{
+public class DetailsActivity extends ActionBarActivity {
 
     TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc;
     String function_name,header,synt,desc,par,ret,hea;
@@ -28,6 +30,8 @@ public class DetailsActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailsactivity);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         //TextView tv= (TextView) findViewById(R.id.tvvvv);
         Bundle bundle=getIntent().getExtras();
         header= bundle.getString("header");

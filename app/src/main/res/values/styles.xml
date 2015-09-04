@@ -30,4 +30,5 @@
         <item name="android:background">@drawable/layout_border</item>
         <item name="android:elevation">8dp</item>
     </style>
+
 </resources>
