@@ -18,7 +18,24 @@
             android:paddingBottom="8dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"/>
-
+        <ViewStub
+            android:id="@+id/stub_import"
+            android:inflatedId="@+id/panel_import"
+            android:layout="@layout/search_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_search"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom|right"/>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

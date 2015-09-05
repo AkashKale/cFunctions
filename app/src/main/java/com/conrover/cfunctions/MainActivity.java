@@ -1,5 +1,6 @@
 package com.conrover.cfunctions;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -41,7 +46,7 @@ import java.util.List;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, View.OnClickListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity
     HashMap<String,List<String>> listItems; //contents of elvList
     private Resources MainActivity;
     SharedPreferences sp;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,9 @@ public class MainActivity extends AppCompatActivity
         listAdapter = new ExpandableListAdapter(this, groupNames, listItems);
         elvList.setAdapter(listAdapter);
         elvList.setOnChildClickListener(this);
+
+        fab=(FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(this);
         //elvList.setOnGroupClickListener(this);
 
     }
@@ -136,6 +145,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        View vSearchBox=((ViewStub) findViewById(R.id.stub_import)).inflate();
+        EditText etSearchBox=(EditText)findViewById(R.id.etSearchBox);
+        etSearchBox.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(getBaseContext().INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etSearchBox, InputMethodManager.SHOW_IMPLICIT);
     }
 
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
@@ -288,7 +306,7 @@ public class MainActivity extends AppCompatActivity
             b.putString("header",grpname);
             b.putString("function_name",funname);
             i.putExtras(b);
-            startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(i);
        // }
         return true;
     }
