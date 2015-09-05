@@ -2,12 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             style="@style/detailsActivityTextViewTitle"
@@ -82,6 +80,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="gfgf"
+            android:layout_marginBottom="16dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>

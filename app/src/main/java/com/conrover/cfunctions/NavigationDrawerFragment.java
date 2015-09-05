@@ -1,5 +1,9 @@
 package com.conrover.cfunctions;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -11,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +24,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+
 import android.widget.SimpleAdapter;
+
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,7 +44,7 @@ import java.util.List;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -66,7 +78,10 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    SharedPreferences sp;
+    public int imageSet=0;
 
+    private DrawerAdapter drawerAdapter;
     public NavigationDrawerFragment() {
     }
 
@@ -76,7 +91,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
@@ -85,11 +100,15 @@ public class NavigationDrawerFragment extends Fragment {
         }
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+
+
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
@@ -99,17 +118,22 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerExpListView = (ExpandableListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+        mDrawerExpListView.setOnChildClickListener(this);
         mDrawerExpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("Position clicked", position + "");
                 selectItem(position);
             }
         });
 
         setupExpList();
-        expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
-        mDrawerExpListView.setAdapter(expListAdapter);
+        drawerAdapter=new DrawerAdapter(getActionBar().getThemedContext(),groupNames,listItems);
+        mDrawerExpListView.setAdapter(drawerAdapter);
+        //expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
+        //mDrawerExpListView.setAdapter(expListAdapter);
         mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return mDrawerExpListView;
     }
 
@@ -124,7 +148,7 @@ public class NavigationDrawerFragment extends Fragment {
         List<String> sortTypes = new ArrayList<String>();
         sortTypes.add("Header Files");
         sortTypes.add("Function Names");
-        listItems.put(groupNames.get(0), sortTypes); // Header, Child data
+        listItems.put("Sort By", sortTypes); // Header, Child data
     }
 
     public boolean isDrawerOpen() {
@@ -144,17 +168,16 @@ public class NavigationDrawerFragment extends Fragment {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_menu);
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_action_navigation_menu,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -171,6 +194,10 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                Log.e("Drawer","opened");
+
+                drawerView.bringToFront();
+                mDrawerLayout.requestLayout();
                 if (!isAdded()) {
                     return;
                 }
@@ -214,6 +241,7 @@ public class NavigationDrawerFragment extends Fragment {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
+            Log.e("callback","true");
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
     }
@@ -222,6 +250,8 @@ public class NavigationDrawerFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
+            Log.e("onAttached","called");
+            imageSet++;
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
@@ -281,6 +311,62 @@ public class NavigationDrawerFragment extends Fragment {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
 
+    @Override
+    public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+        //ExpandableListView elv;
+        TextView tvClickedView=(TextView)view.findViewById(R.id.tvNavDrawer);
+        TextView tvNotClicked;
+        ImageView ivClicked=(ImageView)view.findViewById(R.id.ivNavDrawer);
+        ImageView ivNotClicked;
+        LinearLayout linearLayout;
+        SharedPreferences.Editor editor=sp.edit();
+        switch(childPosition)
+        {
+            case 0:
+                linearLayout=(LinearLayout)expandableListView.getChildAt(2);
+                ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                ivNotClicked.setImageResource(R.drawable.ic_function);
+                ivClicked.setImageResource(R.drawable.ic_header_selected);
+                tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                tvClickedView.setTypeface(null, Typeface.BOLD);
+                tvClickedView.setTextColor(getResources().getColor(R.color.primary));
+                tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
+                editor.putString("position", "0");
+                editor.commit();
+                break;
+            case 1:
+                linearLayout=(LinearLayout)expandableListView.getChildAt(1);
+                ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                ivNotClicked.setImageResource(R.drawable.ic_header);
+                ivClicked.setImageResource(R.drawable.ic_function_selected);
+                tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                tvClickedView.setTypeface(null, Typeface.BOLD);
+                tvClickedView.setTextColor(getResources().getColor(R.color.primary));
+                tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
+                editor.putString("position", "1");
+                editor.commit();
+                break;
+        }
+        selectItem(0);
+        //startActivity(new Intent("android.intent.action.MainActivity"));
+        //getActivity().finish();
+        //getView().invalidate();
+        //getActivity().recreate();
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment fragment=getTargetFragment();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .detach(fragment)
+                .attach(fragment)
+                .commit();*/
+        return true;
+    }
+
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
@@ -289,5 +375,130 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    public class DrawerAdapter extends BaseExpandableListAdapter
+    {
+        private Context context;
+        HashMap<String,List<String>> listitems;
+        List<String> groupnames;
+        String[] sortTypes;
+        int[] images={R.drawable.ic_header,R.drawable.ic_function};
+        int[] imagesSelected={R.drawable.ic_header_selected,R.drawable.ic_function_selected};
+        public DrawerAdapter(Context context,List<String> groupnames,HashMap<String,List<String>> listItems){
+            sortTypes=context.getResources().getStringArray(R.array.sort_types);
+            this.context=context;
+            this.listitems=listItems;
+            this.groupnames=groupnames;
+        }
+
+        /*@Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View row=null;
+            if(view==null)
+            {
+                LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row=inflater.inflate(R.layout.drawer_layout,viewGroup,false);
+            }
+            else
+            {
+                row=view;
+            }
+            TextView tvNavDrawer=(TextView)row.findViewById(R.id.tvNavDrawer);
+            ImageView ivNavDrawer=(ImageView)row.findViewById(R.id.ivNavDrawer);
+            tvNavDrawer.setText(sortTypes[i]);
+            ivNavDrawer.setImageResource(images[i]);
+            return row;
+        }*/
+
+        @Override
+        public int getGroupCount() {
+            return this.groupnames.size();
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return this.listitems.get(this.groupnames.get(groupPosition))
+                    .size();
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return this.groupnames.get(groupPosition);
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosition) {
+            return this.listitems.get(this.groupnames.get(groupPosition))
+                    .get(childPosition);
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean b, View convertView, ViewGroup viewGroup) {
+            String headerTitle = (String) getGroup(groupPosition);
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.list_group, null);
+            }
+
+            TextView tvListGroup = (TextView) convertView
+                    .findViewById(R.id.tvListGroup);
+            tvListGroup.setTypeface(null, Typeface.BOLD);
+            tvListGroup.setText(headerTitle);
+            //Log.e("Header", "Working"+tvListGroup.getText());
+            return convertView;
+        }
+
+        @Override
+        public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+            View row=null;
+            if(view==null)
+            {
+                LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row=inflater.inflate(R.layout.drawer_layout,viewGroup,false);
+            }
+            else
+            {
+                row=view;
+            }
+            if(imageSet<=2) {
+                Log.e("Image", "Set");
+                TextView tvNavDrawer = (TextView) row.findViewById(R.id.tvNavDrawer);
+                ImageView ivNavDrawer = (ImageView) row.findViewById(R.id.ivNavDrawer);
+                tvNavDrawer.setText(sortTypes[i1]);
+                ivNavDrawer.setImageResource(images[i1]);
+                int position=Integer.parseInt(sp.getString("position","0"));
+                Log.e("position", position + "");
+                if(position==i1)
+                {
+                    tvNavDrawer.setTypeface(null,Typeface.BOLD);
+                    tvNavDrawer.setTextColor(getResources().getColor(R.color.primary));
+                    ivNavDrawer.setImageResource(imagesSelected[position]);
+                }
+                imageSet++;
+            }
+            return row;
+        }
+
+        @Override
+        public boolean isChildSelectable(int i, int i1) {
+            return true;
+        }
     }
 }
