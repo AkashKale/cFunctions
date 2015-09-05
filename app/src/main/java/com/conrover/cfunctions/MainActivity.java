@@ -14,13 +14,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,6 +41,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.app.ActivityOptions.makeSceneTransitionAnimation;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -64,7 +68,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -285,10 +288,10 @@ public class MainActivity extends AppCompatActivity
             Bundle b=new Bundle();
             String grpname=(String)listAdapter.getGroup(groupPosition);
             String funname=(String)listAdapter.getChild(groupPosition,childPosition);
-            b.putString("header",grpname);
-            b.putString("function_name",funname);
+            b.putString("header", grpname);
+            b.putString("function_name", funname);
             i.putExtras(b);
-            startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(i);
        // }
         return true;
     }
