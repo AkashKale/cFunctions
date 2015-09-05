@@ -8,9 +8,1165 @@
 "syntax": "char *strcat(char *s1, const char *s2)",
 "parameters": "s1: A pointer to a string that will be modified. s2 will be copied to the end of s1.\n\ns2: A pointer to a string that will be appended to the end of s1. "
 },
-{
-"funname": "strcati",
-"returns": "data"
-}
+  {
+    "funname": "fabs",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the fabs function returns the absolute value of a floating-point number.",
+    "returns": "The fabs function returns the absolute value of a floating-point number represented by x.",
+    "syntax": "double fabs(double x)",
+    "parameters": "x: The value to convert to an absolute value.  "
+  },
+  {
+    "funname": "ceil",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the ceil function returns the smallest integer that is greater than or equal to x (ie: rounds up the nearest integer).",
+    "returns": "The ceil function returns the smallest integer that is greater than or equal to x.",
+    "syntax": "double ceil(double x)",
+    "parameters": "x: The value to round up to the nearest integer."
+  },
+  {
+    "funname": "floor",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the floor function returns the largest integer that is smaller than or equal to x (ie: rounds downs the nearest integer).",
+    "returns": "The floor function returns the largest integer that is smaller than or equal to x.",
+    "syntax": "double floor(double x);",
+    "parameters": "x: The value to round down to the nearest integer. "
+  },
+  {
+    "funname": "fmod",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the fmod function returns the remainder when x is divided by y.",
+    "returns": "The fmod function returns the remainder when x is divided by y.",
+    "syntax": "double fmod(double x, double y)",
+    "parameters": "x is divided by y. "
+  },
+  {
+    "funname": "ldexp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the ldexp function combines a fraction and an exponent into a floating-point value.",
+    "returns": "The ldexp function returns a floating-point value combining a fraction and an exponent based on the equation: fraction x 2 exponent",
+    "syntax": "double ldexp(double fraction, int exp)",
+    "parameters": "fraction: The fractional part of the value.\n\nexp: The exponent part of the value. "
+  },
+  {
+    "funname": "frexp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the frexp function splits a floating-point value into a fraction and an exponent. The fraction is returned by the frexp function and the exponent is stored in the exp variable.",
+    "returns": "The frexp function returns the fractional part of value based on the equation: fraction x 2 exponent.The fraction must be greater than or equal to 0.5 and less than 1, or the fraction must be equal to 0.",
+    "syntax": "double frexp(double value, int *exp)",
+    "parameters": "value: The floating-point value to split into a fraction and an exponent.\n\nexp: A pointer to an integer variable where the exponent will be stored. "
+  },
+  {
+    "funname": "exp",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the exp function returns e raised to the power of x.",
+    "returns": "The exp function returns the result of e raised to the power of x.",
+    "syntax": "double exp(double x)",
+    "parameters": "x: The value used in the calculation where e is raised to the power of x. If the magnitude of x is too large, the exp function will return a range error. "
+  },
+  {
+    "funname": "modf",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the modf function splits a floating-point value into an integer and a fractional part. The fraction is returned by the modf function and the integer part is stored in the iptr variable.",
+    "returns": "The modf function returns the fractional part of value.",
+    "syntax": "double modf(double value, double *iptr)",
+    "parameters": "value: The floating-point value to split into an integer and a fractional part.\n\niptr: A pointer to a variable where the integer part will be stored. "
+  },
+  {
+    "funname": "log10",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the log10 function returns the logarithm of x to the base of 10.",
+    "returns": "The log10 function returns the logarithm of x to the base of 10.",
+    "syntax": "double log10(double x)",
+    "parameters": "x: A value used in the calculation of the logarithm of x to the base of 10. If x is negative, the log10 function will return a domain error. If x is zero, the log10 function will return a range error. "
+  },
+  {
+    "funname": "log",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the log function returns the logarithm of x to the base of e.",
+    "returns": "The log function returns the logarithm of x to the base of e.",
+    "syntax": "double log(double x)",
+    "parameters": "x: A value used in the calculation of the logarithm of x to the base of e. If x is negative, the log function will return a domain error. If x is zero, the log function will return a range error.  "
+  },
+  {
+    "funname": "pow",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the pow function returns x raised to the power of y.",
+    "returns": "The pow function returns x raised to the power of y. If x is negative and y is not an integer value, the pow function will return a domain error.",
+    "syntax": "double pow(double x, double y)",
+    "parameters": "x: A value used in the calculation where x is raised to the power of y.\n\ny: A value used in the calculation where x is raised to the power of y.  "
+  },
+  {
+    "funname": "sqrt",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sqrt function returns the square root of x",
+    "returns": "The sqrt function returns the square root of x. If x is negative, the sqrt function will return a domain error.",
+    "syntax": "double sqrt(double x)",
+    "parameters": "x: A value used when calculating the square root of x. "
+  },
+  {
+    "funname": "atan2",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the atan2 function returns the arc tangent of y / x.",
+    "returns": "The atan2 function returns the arc tangent of y / x. It will return a value between -π and π. If x and y are both equal to 0, the atan2 function will return a domain error.",
+    "syntax": "double atan2(double y, double x)",
+    "parameters": "x: The parameter when calculating the arc tangent of y / x.\n\ny: The parameter when calculating the arc tangent of y / x. "
+  },
+  {
+    "funname": "acos",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the acos function returns the arc cosine of x.",
+    "returns": "The acos function returns the arc cosine of a number represented by x. It will return a value between 0 and π.",
+    "syntax": "double acos(double x)",
+    "parameters": "x: A value between -1 and 1. A domain error will occur if x is not between -1 and 1.  "
+  },
+  {
+    "funname": "asin",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the asin function returns the arc sine of x.",
+    "returns": "The asin function returns the arc sine of a number represented by x. It will return a value between -π/2 and π/2.",
+    "syntax": "double asin(double x)",
+    "parameters": "x: A value between -1 and 1. A domain error will occur if x is not between -1 and 1."
+  },
+  {
+    "funname": "atan",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the atan function returns the arc tangent of x.",
+    "returns": "The atan function returns the arc tangent of a number represented by x. It will return a value between -π/2 and π/2.",
+    "syntax": "double atan(double x)",
+    "parameters": "x: The value used to calculate the arc tangent.  "
+  },
+  {
+    "funname": "cos",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the cos function returns the cosine of x.",
+    "returns": "The cos function returns the cosine of x, measured in radians.",
+    "syntax": "double cos(double x)",
+    "parameters": "x: A value expressed in radians (not degrees). "
+  },
+  {
+    "funname": "sin",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sin function returns the sine of x.",
+    "returns": "The sin function returns the sine of x, measured in radians.",
+    "syntax": "double sin(double x)",
+    "parameters": "x: A value expressed in radians (not degrees). "
+  },
+  {
+    "funname": "tanh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the tanh function returns the hyperbolic tangent of x.",
+    "returns": "The tanh function returns the hyperbolic tangent of x.",
+    "syntax": "double tanh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees).  "
+  },
+  {
+    "funname": "sinh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the sinh function returns the hyperbolic sine of x.",
+    "returns": "The sinh function returns the hyperbolic sine of x. If the magnitude of x is too large, the sinh function will return a range error.",
+    "syntax": "double sinh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees).  "
+  },
+  {
+    "funname": "cosh",
+    "header": "#include <math.h>",
+    "desc": "In the C Programming Language, the cosh function returns the hyperbolic cosine of x.",
+    "returns": "The cosh function returns the hyperbolic cosine of x. If the magnitude of x is too large, the cosh function will return a range error.",
+    "syntax": "double cosh(double x)",
+    "parameters": "x: A value expressed in radians (not degrees)."
+  },
+  {
+    "funname": "tolower",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the tolower function returns c as a lowercase letter.",
+    "returns": "The tolower function returns c as a lowercase letter. If c is already lowercase, the tolower function returns c unchanged.",
+    "syntax": "int tolower(int c)",
+    "parameters": "c: The value to convert to a lowercase letter.  "
+  },
+  {
+    "funname": "toupper",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the toupper function returns c as an uppercase letter.",
+    "returns": "The toupper function returns c as an uppercase letter. If c is already uppercase, the toupper function returns c unchanged.",
+    "syntax": "int toupper(int c)",
+    "parameters": "c: The value to convert to an uppercase letter.  "
+  },
+  {
+    "funname": "isalnum",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isalnum function tests whether c is alphanumeric.",
+    "returns": "The isalnum function returns a nonzero value if c is alphanumeric and returns zero if c is not alphanumeric.",
+    "syntax": "int isalnum(int c)",
+    "parameters": "c: The value to test whether it is alphanumeric.  "
+  },
+  {
+    "funname": "isalpha",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isalpha function tests whether c is alphabetic.",
+    "returns": "The isalpha function returns a nonzero value if c is alphabetic and returns zero if c is not alphabetic.",
+    "syntax": "int isalpha(int c)",
+    "parameters": "c: The value to test whether it is alphabetic. "
+  },
+  {
+    "funname": "iscntrl",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the iscntrl function tests whether c is a control character.",
+    "returns": "The iscntrl function returns a nonzero value if c is a control character and returns zero if c is not a control character.",
+    "syntax": "int iscntrl(int c)",
+    "parameters": "c: The value to test whether it is a control character. "
+  },
+  {
+    "funname": "isdigit",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isdigit function tests whether c is a digit.",
+    "returns": "The isdigit function returns a nonzero value if c is a digit and returns zero if c is not a digit.",
+    "syntax": "int isdigit(int c)",
+    "parameters": "c: The value to test whether it is a digit. "
+  },
+  {
+    "funname": "isgraph",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isgraph function tests whether c is a printing character, but does not include a space. If you wish to include a space, try using the isprint function.",
+    "returns": "The isgraph function returns a nonzero value if c is a printing character and returns zero if c is not a printing character.",
+    "syntax": "int isgraph(int c)",
+    "parameters": "c: The value to test whether it is a printing character, but does not include a space. "
+  },
+  {
+    "funname": "islower",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the islower function tests whether c is a lowercase letter.",
+    "returns": "The islower function returns a nonzero value if c is a lowercase letter and returns zero if c is not a lowercase letter.",
+    "syntax": "int islower(int c)",
+    "parameters": "c: The value to test whether it is a lowercase letter. "
+  },
+  {
+    "funname": "isprint",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isprint function tests whether c is a printing character and it does include a space. If you do not wish to include a space, try using the isgraph function.",
+    "returns": "The isprint function returns a nonzero value if c is a printing character and returns zero if c is not a printing character.",
+    "syntax": "int isprint(int c)",
+    "parameters": "c: The value to test whether it is a printing character and it does include a space. "
+  },
+  {
+    "funname": "ispunct",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the ispunct function tests whether c is a punctuation character. Punctuation characters are considered to be all printing characters except alphanumeric characters and space.",
+    "returns": "The ispunct function returns a nonzero value if c is a punctuation character and returns zero if c is not a punctuation character.",
+    "syntax": "int ispunct(int c)",
+    "parameters": "c: The value to test whether it is a punctuation character. Punctuation characters are considered to be all printing characters except alphanumeric characters and space. "
+  },
+  {
+    "funname": "isupper",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isupper function tests whether c is an uppercase letter.",
+    "returns": "The isupper function returns a nonzero value if c is an uppercase letter and returns zero if c is not an uppercase letter.",
+    "syntax": "int isupper(int c)",
+    "parameters": "c: The value to test whether it is an uppercase letter. "
+  },
+  {
+    "funname": "ispace",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the ispace function tests whether c is a white-space character such as space , form feed , new line, carriage return , horizontal tab ,and vertical tab.",
+    "returns": "The isspace function returns a nonzero value if c is a white-space character and returns zero if c is not a white-space character.",
+    "syntax": "int isspace(int c)",
+    "parameters": "c:The value to test whether it is a white-space character such as space, form feed , new line , carriage return , horizontal tab,and vertical tab .  "
+  },
+  {
+    "funname": "isxdigit",
+    "header": "#include <ctype.h>",
+    "desc": "In the C Programming Language, the isxdigit function tests whether c is a hexadecimal digit.",
+    "returns": "The isxdigit function returns a nonzero value if c is a hexadecimal digit and returns zero if c is not a hexadecimal digit.",
+    "syntax": "int isxdigit(int c)",
+    "parameters": "c: The value to test whether it is a hexadecimal digit.  "
+  },
+  {
+    "funname": "assert",
+    "header": "#include <assert.h>",
+    "desc": "In the C Programming Language, assert is a macro that is designed to be used like a function. It checks the value of an expression that we expect to be true under normal circumstances.If expression is a nonzero value, the assert macro does nothing. If expression is zero, the assert macro writes a message to stderr and terminates the program by calling abort.",
+    "returns": "None",
+    "syntax": "void assert(int expression);",
+    "parameters": "expression:An expression that we expect to be true under normal circumstances. "
+  },
+  {
+    "funname": "localeconv",
+    "header": "#include <locale.h>",
+    "desc": "In the C Programming Language, the localeconv function returns a pointer to a structure that contains current locale information.",
+    "returns": "The localeconv function returns a pointer to a structure that contains current locale information.",
+    "syntax": "struct lconv *localeconv(void);",
+    "parameters": "Null"
+  },
+  {
+    "funname": "setlocale",
+    "header": "#include <locale.h>",
+    "desc": "In the C Programming Language, the setlocale function allows you to set the program's locale information.",
+    "returns": "If locale is a null pointer, the setlocale function returns a pointer to the string associated with category for the current locale. If the locale is not a null pointer, the setlocale function returns a pointer to the string associated with category for the new locale.If the setlocale function fails, a null pointer will be returned.",
+    "syntax": "char *setlocale(int category, const char *locale);",
+    "parameters": "category:The program's locale to change. It can either be one category or all categories.\n\nlocale:A pointer to a string which contains the new locale. "
+  },
+  {
+    "funname": "setjmp",
+    "header": "#include <setjmp.h>",
+    "desc": "In the C Programming Language, the setjmp function stores the current environment in the env variable in preparation for a future call from the longjmp function.",
+    "returns": "The setjmp function returns zero when it is called directly. When it is returning from a call from the longjmp function, the setjmp function will return a nonzero value.",
+    "syntax": "int setjmp(jmp_buf env);",
+    "parameters": "env:The current environment saved for a future longjmp function call. "
+  },
+  {
+    "funname": "longjmp",
+    "header": "#include <setjmp.h>",
+    "desc": "In the C Programming Language, the longjmp function restores the environment (as stored in the env variable) and returns from the original setjmp function call that saved env.",
+    "returns": "The longjmp function does not return anything.However, the longjmp function does affect the setjmp function return value. If val is 0, the setjmp function will return 1. Otherwise if val is a nonzero value, the setjmp function will return the setjmp return value.",
+    "syntax": "void longjmp(jmp_buf env, int val);",
+    "parameters": "env:The environment saved by the original setjmp function call.\n\nval:The return value for the setjmp function call.  "
+  },
+  {
+    "funname": "raise",
+    "header": "#include <signal.h>",
+    "desc": "In the C Programming Language, the raise function raises the signal represented by sig.",
+    "returns": "The raise function returns zero if successful and a nonzero value if unsuccessful.",
+    "syntax": "int raise(int sig);",
+    "parameters": "sig: The numeric value of the signal to raise.  "
+  },
+  {
+    "funname": "signal",
+    "header": "#include <signal.h>",
+    "desc": "In the C Programming Language, the signal function installs a function as the handler for a signal.",
+    "returns": "The signal function returns a pointer to the previous handler for this signal. If the handler can not be installed, the signal function returns SIG_ERR.",
+    "syntax": "void (*signal(int sig, void (*func)(int)))(int);",
+    "parameters": "sig:The numeric value of the signal.\n\nfunc:The function to install as the signal handler.   "
+  },
+  {
+    "funname": "va_end",
+    "header": "#include <stdarg.h>",
+    "desc": "In the C Programming Language, the va_end function ends the processing of ap (the variable argument list).",
+    "returns": "The va_end function does not return anything.",
+    "syntax": "void va_end(va_list ap);",
+    "parameters": "ap: A variable argument list. "
+  },
+  {
+    "funname": "va_start",
+    "header": "#include <stdarg.h>",
+    "desc": "In the C Programming Language, the va_start function initializes the variable argument list referred to by ap. The va_start function must be called before using the va_arg function.",
+    "returns": "The va_start function does not return anything.",
+    "syntax": "void va_start(va_list ap, parmN);",
+    "parameters": "ap:A variable argument list.\n\nparmN:The name of the last ordinary parameter. "
+  },
+  {
+    "funname": "va_arg",
+    "header": "#include <stdarg.h>",
+    "desc": "In the C Programming Language, the va_arg function fetches an argument in a variable argument list.The va_arg function updates ap so that the next call to the va_arg function fetches the next argument. You must call the va_start function to initialize ap before using the va_arg function.",
+    "returns": "The va_arg function returns the value of the argument.",
+    "syntax": "type va_arg(va_list ap, type);",
+    "parameters": "ap:A variable argument list.\n\ntype:The type of the argument.  "
+  },
+  {
+    "funname": " fprintf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fprintf function writes formatted output to stream.",
+    "returns": "The fprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int fprintf(FILE *stream, const char *format, ...);",
+    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. "
+  },
+  {
+    "funname": "fscanf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fscanf function reads formatted output from stream.",
+    "returns": "The fscanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
+    "syntax": "int fscanf(FILE *stream, const char *format, ...);",
+    "parameters": "stream:The stream where the output will be read.\n\nformat: Describes the input as well as provides a placeholder to insert the formatted string.  "
+  },
+  {
+    "funname": "printf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the printf function writes a formatted string to the stdout stream.",
+    "returns": "The printf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int printf(const char *format, ...);",
+    "parameters": "format:Describes the output as well as provides a placeholder to insert the formatted string. "
+  },
+  {
+    "funname": "sprintf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the sprintf function writes formatted output to an object pointed to by s.",
+    "returns": "The sprintf function returns the number of characters stored in the array (not including the null character).",
+    "syntax": "int sprintf(char *s, const char *format, ...);",
+    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string."
+  },
+  {
+    "funname": "scanf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the scanf function reads a formatted string from the stdin stream.",
+    "returns": "The scanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
+    "syntax": "int scanf(const char *format, ...);",
+    "parameters": "format: Describes the input as well as provides a placeholder to insert the formatted string. "
+  },
+  {
+    "funname": "sscanf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the sscanf function reads formatted output from an object pointed to by s.",
+    "returns": "The sscanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
+    "syntax": "int sscanf(const char *s, const char *format, ...);",
+    "parameters": "stream:An array where the output will be read. \n\nformat: Describes the input as well as provides a placeholder to insert the formatted string.  "
+  },
+  {
+    "funname": "vfprintf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the vfprintf function writes formatted output to stream using arg as the variable argument list.",
+    "returns": "The vfprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int vfprintf(FILE *stream, const char *format, va_list arg);",
+    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. "
+  },
+  {
+    "funname": "vprintf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the vprintf function writes a formatted string to the stdout stream using arg as the variable argument list.",
+    "returns": "The vprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int vprintf(const char *format, va_list arg);",
+    "parameters": "format: Describes the output as well as provides a placeholder to insert the formatted string. \n\narg: A variable argument list. "
+  },
+  {
+    "funname": "vsprintf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the vsprintf function writes formatted output to an object pointed to by s using arg as the variable argument list.",
+    "returns": "The printf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int vsprintf(char *s, const char *format, va_list arg);",
+    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. \n\narg: A variable argument list. "
+  },
+  {
+    "funname": "fclose",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fclose function closes a stream pointed to by stream. The fclose function flushes any unwritten data in the stream's buffer.",
+    "returns": "The fclose function returns zero if successful or EOF if an error was encountered.",
+    "syntax": "int fclose(FILE *stream);",
+    "parameters": "stream: The stream to close. "
+  },
+  {
+    "funname": "fflush",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fflush function writes any unwritten data in stream's buffer. If stream is a null pointer, the fflush function will flush all streams with unwritten data in the buffer.",
+    "returns": "The fflush function returns zero if successful or EOF if an error was encountered.",
+    "syntax": "int fflush(FILE *stream);",
+    "parameters": "stream:The stream to flush.  "
+  },
+  {
+    "funname": "fopen",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fopen function opens a file called filename and associates it to stream. The fopen function clears all error and EOF indictors for the stream.",
+    "returns": "The fopen function returns a file pointer for the new file. If a new file can not be opened, the fopen function returns a null pointer.",
+    "syntax": "FILE *fopen(const char *filename, const char *mode);",
+    "parameters": "filename: The filename to associate with the new file being opened.\n\nmode: The mode in which to open the file.  "
+  },
+  {
+    "funname": "freopen",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the freopen function first closes the file associated with stream. Then the freopen function opens filename and associates it with stream. In essence, it associates a different file to a stream that is already open.",
+    "returns": "The freopen function returns a file pointer for the opened file. If the file can not be opened, the freopen function returns a null pointer..",
+    "syntax": "FILE *freopen(const char *filename, const char *mode, FILE *stream);",
+    "parameters": "filename:The filename to associate with the file being reopened.\n\nmode:The mode in which to open the file.\n\nstream:The stream to associate with filename. "
+  },
+  {
+    "funname": "remove",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the remove function removes a file pointed to by filename.",
+    "returns": "The remove function returns zero is successful, otherwise nonzero.",
+    "syntax": "int remove(const char *filename);",
+    "parameters": "filename: The file to delete.  "
+  },
+  {
+    "funname": "rename",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the rename function changes the name of a file. You must close the file before renaming, as a file can not be renamed if it is open.",
+    "returns": "The rename function returns zero is successful, otherwise nonzero",
+    "syntax": "int rename(const char *old, const char *new);",
+    "parameters": "old:The old file name that will be changed.\n\nnew:The new file name to use.  "
+  },
+  {
+    "funname": "setbuf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the setbuf function lets you change the way a stream is buffered and to control the size and location of the buffer. The setbuf function assumes default values for the buffering mode and buffer size.",
+    "returns": "The setbuf function returns zero if successful or a nonzero value if an error was encountered.",
+    "syntax": "void setbuf(FILE  *stream, char *buf);",
+    "parameters": "stream:The stream to modify.\n\nbuf:A pointer to the desired buffer. "
+  },
+  {
+    "funname": "setvbuf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the setvbuf function lets you change the way a stream is buffered and to control the size and location of the buffer.",
+    "returns": "The setvbuf function returns zero if successful or a nonzero value if an error was encountered.",
+    "syntax": "int setvbuf(FILE  *stream, char *buf, int mode, size_t size);",
+    "parameters": "stream:The stream to modify.\n\nbuf:A pointer to the desired buffer.\n\nmode:It is one of the following:\n\nMode 	Explanation\n\n_IOFBF 	Full buffering\n\n_IOLBF 	Line buffering\n\n_IONBF 	No buffering\n\nsize:The number of bytes in the buffer. "
+  },
+  {
+    "funname": "tmpfile",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the tmpfile function creates a temporary file. This temporary file will automatically be deleted if either the temporary file is closed or the program ends.",
+    "returns": "The tmpfile function returns a pointer to the temporary file. If a temporary file can not be created, the tmpfile function returns a null pointer.",
+    "syntax": "FILE *tmpfile(void);",
+    "parameters": "none "
+  },
+  {
+    "funname": "tmpnam",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the tmpnam function creates a name for a temporary file. If the argument is a null pointer, the tmpnam function will store the file name in a static variable and return a pointer to it. Otherwise, the tmpnam function will copy the file name into s.",
+    "returns": "The tmpnam function returns a pointer to the file name.",
+    "syntax": "char *tmpnam(char *s);",
+    "parameters": "s:The character array to copy the file name.  "
+  },
+  {
+    "funname": "printf",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the printf function writes a formatted string to the stdout stream.",
+    "returns": "The printf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
+    "syntax": "int printf(const char *format, ...);",
+    "parameters": "format:Describes the output as well as provides a placeholder to insert the formatted string. "
+  },
+  {
+    "funname": "fgetc",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fgetc function reads a character from the stream pointed to by stream.",
+    "returns": "The fgetc function returns the character read. If an error occurs, the fgetc function will set the stream's error indicator and return EOF. If the fgetc function encounters the end of stream, it will set the stream's end-of-file indicator and return EOF.",
+    "syntax": "int fgetc(FILE *stream);",
+    "parameters": "stream:The stream to read. "
+  },
+  {
+    "funname": "fgets",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fgets function reads characters from the stream pointed to by stream.\nThe fgets function will stop reading when n-1 characters are read, the first new-line character is encountered in s, or at the end-of-file, whichever comes first. Then the fgets function will append a null character to the string.",
+    "returns": "The fgets function returns s. The fgets function will return a null pointer if an error occurs while trying to read the stream or the end of the stream is encountered before any characters are stored.",
+    "syntax": "char *fgets(char *s, int n, FILE *stream);",
+    "parameters": "s: The array where the characters that are read will be stored.\n\nn: The size of s.\n\nstream: The stream to read. "
+  },
+  {
+    "funname": "fputc",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fputc function writes a character to the stream pointed to by stream.",
+    "returns": "The fputc function returns the character written. If an error occurs writing to the stream, the fputc function will set the stream's error indicator and return EOF.",
+    "syntax": "int fputc(int c, FILE *stream);",
+    "parameters": "c:The character to write to the stream.\n\nstream:The stream to write to. "
+  },
+  {
+    "funname": "fputs",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fputs function writes a string to the stream pointed to by stream",
+    "returns": "The fputs function a nonnegative value if it is successful. The fputs function will return an EOF if an error occurs while trying to write to the stream.",
+    "syntax": "int fputs(const char *s, FILE *stream);",
+    "parameters": "s:The string to write to the stream.\n\nstream:The stream to write to. "
+  },
+  {
+    "funname": "getc",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the getc function reads a character from the stream pointed to by stream.",
+    "returns": "The getc function returns the character read. If an error occurs, the getc function will set the stream's error indicator and return EOF. If the getc function encounters the end of stream, it will set the stream's end-of-file indicator and return EOF.",
+    "syntax": "int getc(FILE *stream);",
+    "parameters": "stream:The stream to read. "
+  },
+  {
+    "funname": "getchar",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the getchar function reads a character from the stdin stream.",
+    "returns": "The getchar function returns the character read. If an error occurs, the getchar function will set the stdin's error indicator and return EOF. If the getchar function encounters the end of stream, it will set the stdin's end-of-file indicator and return EOF.",
+    "syntax": "int getchar(void);",
+    "parameters": "c: The value to test whether it is a digit. "
+  },
+  {
+    "funname": "gets",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the gets function reads characters from the stdin stream and stores them in s.",
+    "returns": "The gets function returns s. The gets function will return a null pointer if an error occurs while trying to read stdin or the end of the stream is encountered before any characters are stored.",
+    "syntax": "char *gets(char *s);)",
+    "parameters": "s: It is where the read characters will be stored. "
+  },
+  {
+    "funname": "putc",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the putc function writes a character to the stream pointed to by stream",
+    "returns": "The putc function returns the character written. If an error occurs writing to the stream, the putc function will set the stream's error indicator and return EOF.",
+    "syntax": "int putc(int c, FILE *stream);",
+    "parameters": "c: The character to write to the stream.\nstream: The stream to write to "
+  },
+  {
+    "funname": "putchar",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the putchar function writes a character to the stdout stream.",
+    "returns": "The putchar function returns the character written. If an error occurs, the putchar function will set the stdout's error indicator and return EOF",
+    "syntax": "int putchar(int c);",
+    "parameters": "none "
+  },
+  {
+    "funname": "puts",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the puts function writes a string (and then a new-line characters) to the stdout stream.",
+    "returns": "The puts function returns a nonnegative value if successful. If an error occurs trying to write to stdout, the puts function will return EOF..",
+    "syntax": "int puts(const char *s);",
+    "parameters": "none "
+  },
+  {
+    "funname": "ungetc",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the ungetc function puts a character back onto the stream pointed to by stream and clears the end-of-file indicator for stream.",
+    "returns": "The ungetc function returns the character that is put back. If an error occurs because too many attempts are made to put back characters without a read or file positioning operation, the ungetc function will return EOF.",
+    "syntax": "int ungetc(int c, FILE *stream);",
+    "parameters": "c:The character to put back onto the stream.\n\nstream:The stream to modify. "
+  },
+  {
+    "funname": "fread",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fread function reads nmemb elements (each element is the number of bytes indicated by size) from the stream pointed to by stream and stores them in ptr.",
+    "returns": "The fread function returns the number of elements read. The fread function will return zero if nmemb is zero or size is zero.",
+    "syntax": "size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)",
+    "parameters": "ptr:The array where the elements will be stored.\n\nsize:The size of each element in bytes.\n\nnmemb:The number of elements to read.\n\nstream:The stream to read. "
+  },
+  {
+    "funname": "fwrite",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fwrite function writes nmemb elements (each element is the number of bytes indicated by size) from ptr to the stream pointed to by stream.",
+    "returns": "The fwrite function returns the number of elements written.",
+    "syntax": "size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)",
+    "parameters": "ptr:The array where the elements are copied from.\n\nsize:The size of each element in bytes.\n\nnmemb:The number of elements to write.\n\nstream:The stream to write to.  "
+  },
+  {
+    "funname": "fgetpos",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fgetpos function stores the current position of stream into the object pointed to by pos.",
+    "returns": "The fgetpos function returns zero if successful. If an error occurs, the fgetpos function will return a nonzero value and update errno.",
+    "syntax": "int fgetpos(FILE *stream, fpos_t *pos)",
+    "parameters": "stream:The stream whose current position is to be determined.\n\npos:The current position of stream to be stored.  "
+  },
+  {
+    "funname": "fseek",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fseek function changes the file position indicator for the stream pointed to by stream.",
+    "returns": "The fseek function returns zero if successful. If an error occurs, the fseek function will return a nonzero value.",
+    "syntax": "int fseek(FILE *stream, long int offset, int whence)",
+    "parameters": "stream:The stream whose file position indicator is to be modified.\n\noffset:The offset to use (in bytes) when determining the new file position.\n\nwhence:It can be one of the following values"
+  },
+  {
+    "funname": "fsetpos",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the fsetpos function sets the file position indicator for the stream pointed to by stream.",
+    "returns": "The fsetpos function returns zero if successful. If an error occurs, the fsetpos function will return a nonzero value and updates errno.",
+    "syntax": "int fsetpos(FILE *stream, const fpos_t *pos)",
+    "parameters": "stream:The stream whose file position indicator is to be modified.\n\npos:The file position to set for stream (which was obtained by a previous call to the fgetpos function).  "
+  },
+  {
+    "funname": "ftell",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the ftell function returns the current file position indicator for the stream pointed to by stream.",
+    "returns": "The ftell function returns the current file position indicator for stream. If an error occurs, the ftell function will return -1L and update errno.",
+    "syntax": "long int ftell(FILE *stream)",
+    "parameters": "stream:The stream whose file position indicator is to be returned. "
+  },
+  {
+    "funname": "rewind",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the rewind function sets the file position to the beginning of the file for the stream pointed to by stream. It also clears the error and end-of-file indicators for stream.",
+    "returns": "The rewind function does not return anything.",
+    "syntax": "void rewind(FILE *stream)",
+    "parameters": "stream:The stream whose file position indicator is to be set to the beginning of the file. "
+  },
+  {
+    "funname": "clearerr",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the clearerr function clears the error and end-of-file indicators for the stream pointed to by stream.",
+    "returns": "The clearerr function does not return anything.",
+    "syntax": "void clearerr(FILE *stream)",
+    "parameters": "stream:The stream whose error and end-of-file indicators are to be cleared. "
+  },
+  {
+    "funname": "feof",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the feof function tests to see if the end-of-file indicator has been set for a stream pointed to by stream.",
+    "returns": "The feof function returns a nonzero value if the end-of-file indicator is set. Otherwise, it returns zero.",
+    "syntax": "int feof(FILE *stream)",
+    "parameters": "stream:The stream whose end-of-file indicator is to be tested. "
+  },
+  {
+    "funname": "ferror",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the ferror function tests to see if the error indicator has been set for a stream pointed to by stream.",
+    "returns": "The ferror function returns a nonzero value if the error indicator is set. Otherwise, it returns zero.",
+    "syntax": "int ferror(FILE *stream)",
+    "parameters": "stream:The stream whose error indicator is to be tested. "
+  },
+  {
+    "funname": "perror",
+    "header": "#include <stdio.h>",
+    "desc": "In the C Programming Language, the perror function write an error message to the stderr stream in the following format.",
+    "returns": "The perror function returns a nonzero value if the error indicator is set. Otherwise, it returns zero.",
+    "syntax": "void perror(const char *s)",
+    "parameters": "s:The string portion of the error message written to stderr. "
+  },
+  {
+    "funname": "abort",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the abort function raises the SIGABRT signal, and causes abnormal program termination that returns an implementation defined code indicating unsuccessful termination. Functions registered with atexit aren't called.The following may occur: file buffers are not flushed, streams are not closed, and temporary files are not deleted.",
+    "returns": "The abort function does not return anything.",
+    "syntax": "void abort(void)",
+    "parameters": "Null"
+  },
+  {
+    "funname": "atexit",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the atexit function registers a function as a termination function which is called if the program terminates normally.When calling the atexit function more than once, the last function to be registered is the first function that will be called when the program is terminated normally.",
+    "returns": "The atexit function returns zero if successful and a nonzero value if unsuccessful.",
+    "syntax": "int atexit(void (*func)(void))",
+    "parameters": "func:The function to register as a termination function. "
+  },
+  {
+    "funname": "exit",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the exit function calls all functions registered with atexit and terminates the program. File buffers are flushed, streams are closed, and temporary files are deleted.",
+    "returns": "The exit function does not return anything.",
+    "syntax": "void exit(int status)",
+    "parameters": "status:Indicates whether the program terminated normally.\n\nIt can be one of the following:EXIT_SUCCESS(Successful termination),0(Successful termination),EXIT_FAILURE(Unsuccessful termination) "
+  },
+  {
+    "funname": "getenv",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the getenv function searches the environment list for the operating system and returns a pointer to the string associated with name.",
+    "returns": "The getenv function returns a pointer to the string associated with name from the operating system's environment list. If no match is found, the getenv function will return a null pointer.",
+    "syntax": "char *getenv(const char *name)",
+    "parameters": "name:The string to find in the operating system's environment list."
+  },
+  {
+    "funname": "system",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the system function allows a C program to run another program by passing a command line (pointed to by string) to the operating system's command processor that will then be executed.",
+    "returns": "The system function returns a nonzero value if a command processor is available and string is a null pointer. The system function returns an implementation-defined value if string isn't a null pointer.",
+    "syntax": "int system(const char *string)",
+    "parameters": "string:A command line that will be executed by the operating system's command processor. "
+  },
+  {
+    "funname": "abs",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the abs function returns the absolute value of an integer.",
+    "returns": "The abs function returns the absolute value of an integer represented by x.",
+    "syntax": "int abs(int x)",
+    "parameters": "x:A value to convert to an absolute value. "
+  },
+  {
+    "funname": "div",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the div function divides numerator by denominator. Based on that division calculation, the div function returns a structure containing two members - quotient and remainder.",
+    "returns": "The div function returns a structure with the resulting quotient and remainder based on the division calculation.",
+    "syntax": "div_t div(int numerator, int denominator)",
+    "parameters": "numerator:The value that is divided by denominator in the division calculation.\n\ndenominator:The value divided into numerator in the division calculation. So if numerator is 10 and denominator is 2, then 10 would be divided by 2. "
+  },
+  {
+    "funname": "labs",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the labs function returns the absolute value of a long integer.",
+    "returns": "The labs function returns the absolute value of a long integer represented by x.",
+    "syntax": "long int labs(long int x)",
+    "parameters": "x:A value to convert to an absolute value. "
+  },
+  {
+    "funname": "ldiv",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the ldiv function divides numerator by denominator. Based on that division calculation, the ldiv function returns a structure containing two members - quotient and remainder.",
+    "returns": "The ldiv function returns a structure with the resulting quotient and remainder based on the division calculation.",
+    "syntax": "ldiv_t ldiv(long int numerator, long int denominator)",
+    "parameters": "numerator:A value divided by denominator in the division calculation.\n\ndenomindator:A value divided into numerator in the division calculation. So if numerator is 10 and denominator is 2, then 10 would be divided by 2. "
+  },
+  {
+    "funname": "rand",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the rand function returns a number between 0 and RAND_MAX.",
+    "returns": "The rand function returns a number between 0 and RAND_MAX (inclusive).",
+    "syntax": "int rand(void)",
+    "parameters": "Null"
+  },
+  {
+    "funname": "srand",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the srand function initializes the sequence of pseudo-random numbers generated when the rand function is called.",
+    "returns": "The srand functiondoes not return anything.",
+    "syntax": "void srand(unsigned int seed)",
+    "parameters": "seed:The seed value for the rand function. The seed value determines a particular sequence of random numbers when calling the rand function. If a program always uses the same seed value, the rand function will always get the same sequence of numbers. "
+  },
+  {
+    "funname": "atof",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the atof function converts a string to a floating-point number (double).The atof function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The atof function returns the floating-point representation of a string. The atof function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "syntax": "double atof(const char *nptr)",
+    "parameters": "nptr:A pointer to a string to convert to a floating-point number (double). "
+  },
+  {
+    "funname": "atoi",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the atoi function converts a string to an integer.The atoi function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The atoi function returns the integer representation of a string. The atoi function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "syntax": "int atoi(const char *nptr)",
+    "parameters": "nptr:A pointer to a string to convert to an integer. "
+  },
+  {
+    "funname": "atol",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the atol function converts a string to a long integer.The atol function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The atol function returns the long integer representation of a string. The atol function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "syntax": "long int atol(const char *nptr)",
+    "parameters": "nptr:A pointer to a string to convert to a long integer. "
+  },
+  {
+    "funname": "strtod",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the strtod function converts a string to a double.The strtod function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The strtod function returns the double representation of a string. The strtod function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.If the strtod function converts a value that is too large or too small to convert, it will store ERANGE in errono.",
+    "syntax": "double strtod(const char *nptr, char **endptr)",
+    "parameters": "nptr:A pointer to a string to convert to a double.\n\nendptr:It is used by the strtod function to indicate where the conversion stopped. The strtod function will modify endptr (if endptr is not a null pointer) so that endptr points to the first character that was not converted. "
+  },
+  {
+    "funname": "strtol",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the strtol function converts a string to a long integer.The strtol function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The strtol function returns the long integer representation of a string. The strtol function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.If the strtol function converts a value that is too large or too small to convert, it will store ERANGE in errono.",
+    "syntax": "long int strtol(const char *nptr, char **endptr, int base)",
+    "parameters": "nptr:A pointer to a string to convert to a long integer.\n\nendptr:It is used by the strtol function to indicate where the conversion stopped. The strtol function will modify endptr (if endptr is not a null pointer) so that endptr points to the first character that was not converted.\n\nbase:The base of the number being converted. If base is between 2 and 36, it is used as the radix of the number. If base is zero, the number is assumed to be decimal unless the converted number starts with O (for Octal), Ox (for hex) or OX (for hex). "
+  },
+  {
+    "funname": "strtoll",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the strtoll function converts a string to a long long.The strtoll function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The strtoll function returns the long long representation of a string. The strtoll function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.If the strtoll function converts a value that is too large or too small to convert, it will store ERANGE in errono.",
+    "syntax": "long long strtoll(const char *nptr, char **endptr, int base)",
+    "parameters": "nptr:A pointer to a string to convert to a long integer.\n\nendptr:It is used by the strtoll function to indicate where the conversion stopped. The strtoll function will modify endptr (if endptr is not a null pointer) so that endptr points to the first character that was not converted.\n\nbase:It is the base of the number being converted. If base is between 2 and 36, it is used as the radix of the number. If base is zero, the number is assumed to be decimal unless the converted number starts with O (for Octal), Ox (for hex) or OX (for hex). "
+  },
+  {
+    "funname": "strtoul",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the strtoul function converts a string to an unsigned long integer.The strtoul function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.",
+    "returns": "The strtoul function returns the unsigned long integer representation of a string. The strtoul function skips all white-space characters at the beginning of the string, converts the subsequent characters as part of the number, and then stops when it encounters the first character that isn't a number.If the strtoul function converts a value that is too large or too small to convert, it will store ERANGE in errono.",
+    "syntax": "unsigned long int strtoul(const char *nptr, char **endptr, int base)",
+    "parameters": "nptr:A pointer to a string to convert to an unsigned long integer.\n\nendptr:It is used by the strtoul function to indicate where the conversion stopped. The strtoul function will modify endptr (if endptr is not a null pointer) so that endptr points to the first character that was not converted.\n\nbase:The base of the number being converted. If base is between 2 and 36, it is used as the radix of the number. If base is zero, the number is assumed to be decimal unless the converted number starts with O (for Octal), Ox (for hex) or OX (for hex). "
+  },
+  {
+    "funname": "bsearch",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the bsearch function searches a sorted array stored at address base for the value pointed to by key.",
+    "returns": "The bsearch function returns a negative, zero, or positive integer (based on whether key is less than, equal to, or greater than the element in the array). If key is not found, the bsearch function will return a null pointer.",
+    "syntax": "void *bsearch(const void *key, const void *base, size_t num_members,size_t size, int (*compare_function)(const void *, const void *))",
+    "parameters": "key:The value to search for.\n\nbase:The address in a sorted array to begin the search.\n\nnum_members:The number of elements.\n\nsize:The size of the elements in bytes.\n\ncompare_function:A pointer to a comparison function. "
+  },
+  {
+    "funname": "qsort",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the qsort function sorts the array pointed to by base.",
+    "returns": "The qsort function returns a negative, zero, or positive integer (based on whether the first element in the array is less than, equal to, or greater than the second element in the array).",
+    "syntax": "void qsort(void *base, size_t num_members, size_t size,int (*compare_function) (const void *, const void *))",
+    "parameters": "base:The array to sort.\n\nnum_members:The number of elements in the array.\n\nsize:The size of the elements in bytes.\n\ncompare_function:A pointer to a comparison function. "
+  },
+  {
+    "funname": "calloc",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the calloc function allocates a block of memory for an array.",
+    "returns": "The calloc function returns a pointer to the beginning of the block of memory. If the block of memory can not be allocated, the calloc function will return a null pointer.",
+    "syntax": "void *calloc(size_t num_members, size_t size)",
+    "parameters": "num_members:The number of elements in the array.\n\nsize:The size of the elements in bytes. "
+  },
+  {
+    "funname": "malloc",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the malloc function allocates a block of memory for an array, but it does not clear the block. To allocate and clear the block, use the calloc function.",
+    "returns": "The malloc function returns a pointer to the beginning of the block of memory. If the block of memory can not be allocated, the malloc function will return a null pointer.",
+    "syntax": "void *malloc(size_t size)",
+    "parameters": "size:The size of the elements in bytes. "
+  },
+  {
+    "funname": "realloc",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the realloc function allocates a block of memory for an array and copies to the contents of the old block to the new block of memory.",
+    "returns": "The realloc function returns a pointer to the beginning of the block of memory. If the block of memory can not be allocated, the realloc function will return a null pointer.",
+    "syntax": "void *realloc(void *ptr, size_t size)",
+    "parameters": "ptr:The old block of memory.\n\nsize:The size of the elements in bytes. "
+  },
+  {
+    "funname": "free",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the free function releases a memory block pointed to by ptr.",
+    "returns": "The free function does not return anything.",
+    "syntax": "void free(void *ptr)",
+    "parameters": "ptr:The pointer to the memory block to release. "
+  },
+  {
+    "funname": "mblen",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the mblen function returns the number of bytes in the multibyte character pointed to by s.",
+    "returns": "The mblen function examines the first n bytes of s and if it forms a valid character, it returns the number of bytes in s (as limited by n bytes). If it is not, the mblen function returns -1. The mblen function returns zero if s points to a null character.",
+    "syntax": "int mblen(const char *s, size_t n)",
+    "parameters": "s:The multibyte character in which to calculate the number of bytes.\n\nn:The number of bytes that will be examined. "
+  },
+  {
+    "funname": "mbtowc",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the mbtowc function converts a multibyte character (as pointed to by s) into a wide character (as pointed to by pwc) up to n codes in length.",
+    "returns": "The mbtowc function looks at the first n bytes and if it forms a valid character, it returns the number of bytes in s. If it is not, the mbtowc function returns -1. The mbtowc function returns zero if s points to a null character.",
+    "syntax": "int mbtowc(wchar_t *pwc, const char *s, size_t n)",
+    "parameters": "pwc:the array where the converted wide character will be stored.\n\ns:The multibyte character to convert into a wide character.\n\nn:The maximum number of bytes to store in pwc. "
+  },
+  {
+    "funname": "wctomb",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the wctomb function converts a wide character (as pointed to by wchar) into a multibyte character (as pointed to by s).",
+    "returns": "The wctomb function returns the number of bytes in the character if wchar corresponds to a valid multibyte character. Otherwise, the wctomb function will return -1.",
+    "syntax": "int wctomb(char *s, wchar_t wchar)",
+    "parameters": "s:The array where the converted multibyte character will be stored.\n\nwchar:The wide character to convert into a multibyte character. "
+  },
+  {
+    "funname": "mbstowcs",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the mbstowcs function converts a multibyte string (as pointed to by s) into a wide character string (as pointed to by pwcs) up to n codes in length.",
+    "returns": "The mbstowcs function returns the number of elements modified (not including the terminating code if applicable). The mbstowcs function will return -1 if it encountered an invalid multibyte character.",
+    "syntax": "size_t mbstowcs(wchar_t *pwcs, const char *s, size_t n)",
+    "parameters": "pwcs:The array where the converted wide character string will be stored.\n\ns:The multibyte string to convert into a wide character string.\n\nn:The maximum number of codes to store in pwcs. "
+  },
+  {
+    "funname": "wcstombs",
+    "header": "#include <stdlib.h>",
+    "desc": "In the C Programming Language, the wcstombs function converts a wide character string (as pointed to by pwcs) into a multibyte string (as pointed to by s) up to n bytes in length.",
+    "returns": "The wcstombs function returns the number of bytes stored (not including the null character). The wcstombs function will return -1 if it encountered a character that does not correspond to a valid multibyte character.",
+    "syntax": "size_t wcstombs(char *s, const wchar_t *pwcs, size_t n)",
+    "parameters": "s:The array where the converted multibyte string will be stored.\n\npwcs:The wide character string to convert into a multibyte string.\n\nn:The maximum number of bytes to store in s. "
+  },
+  {
+    "funname": "memcmp",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the memcmp function returns a negative, zero, or positive integer depending on whether the first n characters of the object pointed to by s1 are less than, equal to, or greater than the first n characters of the object pointed to by s2.",
+    "returns": "The memcmp function returns an integer. The return values are as follows:0 (s1 and s2 are equal),Negative integer (The stopping character in s1 was less than the stopping character in s2),Positive integer (The stopping character in s1 was greater than the stopping character in s2).",
+    "syntax": "int memcmp(const void *s1, const void *s2, size_t n)",
+    "parameters": "s1:An array to compare.\n\ns2:An array to compare.\n\nn:The number of characters to compare. "
+  },
+  {
+    "funname": "strcmp",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strcmp function returns a negative, zero, or positive integer depending on whether the object pointed to by s1 is less than, equal to, or greater than the object pointed to by s2.",
+    "returns": "The strcmp function returns an integer. The return values are as follows:0 (s1 and s2 are equal),Negative integer  (The stopping character in s1 was less than the stopping character in s2), Positive integer  (The stopping character in s1 was greater than the stopping character in s2).",
+    "syntax": "int strcmp(const char *s1, const char *s2)",
+    "parameters": "s1:An array to compare.\n\ns2:An array to compare. "
+  },
+  {
+    "funname": "strcoll",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strcoll function returns a negative, zero, or positive integer depending on whether the object pointed to by s1 is less than, equal to, or greater than the object pointed to by s2.The strcoll function performs the comparison based on the rules of the current locale's LC_COLLATE category.",
+    "returns": "The strcoll function returns an integer. The return values are as follows:0 (s1 and s2 are equal),Negative integer (The stopping character in s1 was less than the stopping character in s2),Positive integer (The stopping character in s1 was greater than the stopping character in s2).",
+    "syntax": "int strcoll(const char *s1, const char *s2)",
+    "parameters": "s1:An array to compare.\n\ns2:An array to compare. "
+  },
+  {
+    "funname": "strncmp",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strncmp function returns a negative, zero, or positive integer depending on whether the first n characters of the object pointed to by s1 are less than, equal to, or greater than the first n characters of the object pointed to by s2.The strncmp function will stop comparing if a null character is encountered in either s1 or s2.",
+    "returns": "The strncmp function returns an integer. The return values are as follows:0 (s1 and s2 are equal), Negative integer (The stopping character in s1 was less than the stopping character in s2), Positive integer (The stopping character in s1 was greater than the stopping character in s2).",
+    "syntax": "int strncmp(const char *s1, const char *s2, size_t n)",
+    "parameters": "s1:An array to compare.\n\ns2:An array to compare.\n\nn:The number of characters to compare. "
+  },
+  {
+    "funname": "strxfrm",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strxfrm function transforms the object pointed to by s2 placing the first n characters of the result in the object pointed to by s1 (including the null character).",
+    "returns": "The strxfrm function returns the length of the transformed string. It can exceed n.",
+    "syntax": "size_t strxfrm(char *s1, const char *s2, size_t n)",
+    "parameters": "s1:A pointer to an array where the result will be copied.\n\ns2:A pointer to the string that will be transformed.\n\nn:The number of characters to be copied. "
+  },
+  {
+    "funname": "strncat",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strncat function appends a copy of the string pointed to by s2 to the end of the string pointed to by s1. It returns a pointer to s1 where the resulting concatenated string resides.The strncat function will stop copying when a null character is encountered or n characters have been copied.",
+    "returns": "The strncat function returns a pointer to s1 (where the resulting concatenated string resides).",
+    "syntax": "char *strncat(char *s1, const char *s2, size_t n)",
+    "parameters": "s1:A pointer to a string that will be modified. s2 will be copied to the end of s1.\n\ns2:A pointer to a string that will be appended to the end of s1.\n\nn:The number of characters to be appended. "
+  },
+  {
+    "funname": "memcpy",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the memcpy function copies n characters from the object pointed to by s2 into the object pointed to by s1. It returns a pointer to the destination.The memcpy function may not work if the objects overlap.",
+    "returns": "The memcpy function returns s1.",
+    "syntax": "void *memcpy(void *s1, const void *s2, size_t n)",
+    "parameters": "s1:An array where s2 will be copied to.\n\ns2:The string to be copied.\n\nn:The number of characters to copy. "
+  },
+  {
+    "funname": "memmove",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the memmove function copies n characters from the object pointed to by s2 into the object pointed to by s1. It returns a pointer to the destination.The memmove function will work if the objects overlap.",
+    "returns": "The strcpy function returns s1.",
+    "syntax": "void *memmove(void *s1, const void *s2, size_t n)",
+    "parameters": "s1:An array where s2 will be copied to.\n\ns2:The string to be copied.\n\nn:The number of characters to copy. "
+  },
+  {
+    "funname": "strcpy",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strcpy function copies the string pointed to by s2 into the object pointed to by s1. It returns a pointer to the destination.",
+    "returns": "The strcpy function returns s1.",
+    "syntax": "char *strcpy(char *s1, const char *s2)",
+    "parameters": "s1:An array where s2 will be copied to.\n\ns2:The string to be copied. "
+  },
+  {
+    "funname": "strncpy",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strncpy function copies the first n characters of the array pointed to by s2 into the array pointed to by s1. It returns a pointer to the destination.If the strncpy function encounters a null character in s2, the function will add null characters to s1 until n characters have been written.",
+    "returns": "The strncpy function returns s1.",
+    "syntax": "char *strncpy(char *s1, const char *s2, size_t n)",
+    "parameters": "s1:An array where s2 will be copied to.\n\ns2:The string to be copied.\n\nn:The number of characters to copy"
+  },
+  {
+    "funname": "memchr",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the memchr function searches within the first n characters of the object pointed to by s for the character c. It returns a pointer to it.",
+    "returns": "The memchr function returns a pointer to the first occurrence of the character c within the first n characters of the object pointed to by s. If c isn't found, it returns a null pointer.",
+    "syntax": "void *memchr(const void *s, int c, size_t n)",
+    "parameters": "s:A pointer to a string where the search will be performed.\n\nc:The value to be found.\n\nn:The number of characters to search within the object pointed to by s. "
+  },
+  {
+    "funname": "strchr",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strchr function searches within the string pointed to by s for the character c. It returns a pointer to it",
+    "returns": "The strchr function returns a pointer to the first occurrence of the character c within the string pointed to by s. If c isn't found, it returns a null pointer.",
+    "syntax": "char *strchr(const char *s, int c)",
+    "parameters": "s:A string (terminated by a null character).\n\nc:The character to be found. "
+  },
+  {
+    "funname": "strcspn",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strcspn function searches within the string pointed to by s1 for the string pointed to by s2. It returns the index of the first character that is in the set.",
+    "returns": "The strcspn function returns the index of the first character that is in the set.",
+    "syntax": "size_t strcspn(const char *s1, const char *s2)",
+    "parameters": "s1:A string to search within.\n\ns2:The string that you want to find. "
+  },
+  {
+    "funname": "strpbrk",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strpbrk function searches within the string pointed to by s1 for any character in the string pointed to by s2.",
+    "returns": "The strpbrk function returns a pointer to the leftmost matching character in the string pointed to by s1 that matches any character in the string pointed to by s2. If no match is found, it returns a null pointer.",
+    "syntax": "char *strpbrk(const char *s1, const char *s2)",
+    "parameters": "s1:A string to search within.\n\ns2:The string that you want to find. "
+  },
+  {
+    "funname": "strrchr",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strrchr function searches within the string pointed to by s for the last occurrence of the character c. It returns a pointer to it.",
+    "returns": "The strrchr function returns a pointer to the last occurrence of the character c within the string pointed to by s. If c isn't found, it returns a null pointer.",
+    "syntax": "char *strrchr(const char *s, int c)",
+    "parameters": "s:A string (terminated by a null character).\n\nc:The character to be found. "
+  },
+  {
+    "funname": "strspn",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strspn function searches within the string pointed to by s1 for the string pointed to by s2. It returns the index of the first character that is not in the set.",
+    "returns": "The strspn function returns the index of the first character that is not in the set.",
+    "syntax": "size_t strspn(const char *s1, const char *s2)",
+    "parameters": "s1:A string to search within.\n\ns2:The string that you want to find. "
+  },
+  {
+    "funname": "strstr",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strstr function searches within the string pointed to by s1 for the string pointed to by s2. It returns a pointer to the first occurrence in s1 of s2.",
+    "returns": "The strstr function returns a pointer to the first occurrence s2 within the string pointed to by s1. If s2 isn't found, it returns a null pointer.",
+    "syntax": "char *strstr(const char *s1, const char *s2)",
+    "parameters": "s1:A string to search within.\n\ns2:The substring that you want to find. "
+  },
+  {
+    "funname": "strtok",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strtok function splits s1 into a series of tokens using the delimiter s2. It returns a pointer to the first character of the token.The strtok function marks the end of the token by storing a null character in s1 just after the last character in the token.",
+    "returns": "The strtok function returns a pointer to the first character of the token. If no token is found, a null pointer is returned.You can find additional tokens in the same string using strtok(NULL, s2) because the strtok function continues the search begun by the previous strtok call.",
+    "syntax": "char *strtok(char *s1, const char *s2)",
+    "parameters": "s1:A string to search and break into tokens.\n\ns2:A string containing the delimiter characters. "
+  },
+  {
+    "funname": "memset",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the memset function stores c into the first n characters of the object pointed to by s.",
+    "returns": "The memset function returns s.",
+    "syntax": "void *memset(void *s, int c, size_t n)",
+    "parameters": "s:A pointer to a memory block that will be filled.\n\nc:The value to be stored.\n\nn:The number of characters to be stored. "
+  },
+  {
+    "funname": "strerror",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strerror function returns a pointer to a string that contains an error message for a given errnum.",
+    "returns": "The strerror function returns a pointer to a string that contains an error message for a particular errnum.",
+    "syntax": "char *strerror(int errnum)",
+    "parameters": "errnum:An error number that you want to retrieve the error message for. "
+  },
+  {
+    "funname": "strlen",
+    "header": "#include <string.h>",
+    "desc": "In the C Programming Language, the strlen function returns the length of the string pointed to by s. It does not include the null character in the length calculation.",
+    "returns": "The strlen function returns the length of the string pointed to by s. It does not include the null character in the length calculation.",
+    "syntax": "size_t strlen(const char *s)",
+    "parameters": "s:The string whose length you want to calculate. "
+  },
+  {
+    "funname": "asctime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the asctime function returns a pointer to a null-terminated string that is constructed from the broken-down time pointed to by timeptr. The null-terminated string is stored in a static variable that is modified each time the asctime function is called.",
+    "returns": "The asctime function returns a pointer to a null-terminated string that is of the form:Fri Feb 15 14:45:01 2013",
+    "syntax": "char *asctime(const struct tm *timeptr)",
+    "parameters": "timeptr:A pointer to a tm structure that contains a time broken down into its components. "
+  },
+  {
+    "funname": "ctime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the ctime function converts a calendar time (pointed to by timer) and returns a pointer to a string describing the local time equivalent.",
+    "returns": "The ctime function returns a pointer to a string describing a local time pointed to by timer. It is equivalent to the following asctime function call:asctime(localtime(timer));",
+    "syntax": "char *ctime(const time_t *timer)",
+    "parameters": "timer:A pointer to an object of type time_t that contains a time value to convert. "
+  },
+  {
+    "funname": "gmtime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the gmtime function converts a calendar time (pointed to by timer) and returns a pointer to a structure containing a UTC (or Greenwich Mean Time) value.",
+    "returns": "The gmtime function returns a pointer to a structure containing a UTC (Greenwich Mean Time) value describing a local time pointed to by timer.",
+    "syntax": "struct tm *gmtime(const time_t *timer)",
+    "parameters": "timer:A pointer to an object of type time_t that contains a time value to convert. "
+  },
+  {
+    "funname": "localtime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the localtime function converts a calendar time (pointed to by timer) and returns a pointer to a structure containing a boken-down local time equivalent.",
+    "returns": "The localtime function returns a pointer to a structure broken-down local time equivalent describing a calendar time pointed to by timer.",
+    "syntax": "struct tm *localtime(const time_t *timer)",
+    "parameters": "timer:A pointer to an object of type time_t that contains a time value to convert. "
+  },
+  {
+    "funname": "mktime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the mktime function converts a broken-down local time (pointed to by timeptr) and returns a pointer to a calendar time.",
+    "returns": "The mktime function returns a calendar time that describes a broken-down local time pointed to by timeptr.If there is an error, the mktime function will return -1.",
+    "syntax": "time_t mktime(struct tm *timeptr)",
+    "parameters": "timeptr:A pointer to a structure that contains a broken-down local time to convert. "
+  },
+  {
+    "funname": "strftime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the strftime function stores characters into the array pointed to by s based on the string pointed to by format.",
+    "returns": "The strftime function returns the number of characters stored (not including the null character).If the number of characters stored (including the null character) exceeds maxsize, the strftime function will return zero.",
+    "syntax": "size_t strftime(char *s, size_t maxsize, const char *format,const struct tm *timeptr);",
+    "parameters": "s:An array where the characters will be written.\n\nmaxsize:The number of characters (including the null character) to be stored.\n\nformat:The format string to apply.\n%a (Abbreviated weekday name (Sun, Mon, ...))%A (Full weekday name (Sunday, Monday, ...))%b (Abbreviated month name (Jan, Feb, ...))%B (Full month name (January, February, ...))%c (Complete day and time (Feb 15 14:45:01 2013))%d (Day of the month (0-31))%H (Hour on 24-hour clock (00-23))%I (Hour on a 12-hour clock (01-12))%j (Day of the year (001-366))%m (Month (0-12))%M (Minute (00-59))%p (AM/PM (AM or PM))%S (Second (00-61)Allows for 2 extra leap seconds0%U (Week number (00-53))The first Sunday is the beginning of week 1.0%w (Weekday (0-6))%W (Week number (00-53)The first Monday is the beginning of week 1.)%x (Complete date (Feb 15 2013))%X (Complete time (14:45:01))%y (Year without century (00-99))%Y (Year with century (2013))%Z (Time zone name or abbreviation (EST))\n\ntimeptr: A pointer to a structure whose values will be replaced."
+  },
+  {
+    "funname": "clock",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the clock function returns the elapsed processor time (as measured in clock ticks) since the beginning of the program execution.",
+    "returns": "The clock function returns the elapsed processor time (as measured in clock ticks) since the beginning of the program execution.If you want to determine the elapsed time in seconds, take the result of the clock function and divide by CLOCKS_PER_SEC.If there is an error (ie: the time is unavailable or can not be represented), the clock function will return -1.",
+    "syntax": "clock_t clock(void)",
+    "parameters": "Null"
+  },
+  {
+    "funname": "difftime",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the difftime function returns the difference (as measured in seconds) between time0 and time1. When using the difftime function, time0 is the earlier time.",
+    "returns": "The difftime function returns the difference (as measured in seconds) between time0 and time1.",
+    "syntax": "double difftime(time_t time1, time_t time0)",
+    "parameters": "time1:The later time to use when calculating the difference in seconds.\n\ntime0:The earlier time to use when calculating the difference in seconds. "
+  },
+  {
+    "funname": "time",
+    "header": "#include <time.h>",
+    "desc": "In the C Programming Language, the time function returns the current calendar time.",
+    "returns": "The time function returns the current calendar time.If timer is not a null pointer, the time function will store the calendar time in timer.If there is an error (ie: the time is unavailable), the time function will return -1.",
+    "syntax": "time_t time(time_t *timer)",
+    "parameters": "timer:A pointer. timer can be a null pointer. If timer is not a null pointer, the time function will store the calendar time in timer. "
+  }
 ]
 }
