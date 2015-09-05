@@ -67,21 +67,6 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
-    /*appy
-    private SimpleAdapter mAdapter;
-    private List<HashMap<String,String>> mList ;
-    final private String ITEM = "item";
-    final private String FLAG = "flag";
-    String[] mCountries =new String[]{"item 1","item2"};
-    int[] mFlags = new int[]{
-            R.drawable.ic_profile,R.drawable.ic_code_black_48dp
-    };
-    String[] mCount = new String[]{
-            "1","2"};
-*/
-
-
-
     public NavigationDrawerFragment() {
     }
 
@@ -98,18 +83,6 @@ public class NavigationDrawerFragment extends Fragment {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
-        /*appy
-        mList = new ArrayList<HashMap<String,String>>();
-        for(int i=0;i<2;i++){
-            HashMap<String, String> hm = new HashMap<String,String>();
-            hm.put(ITEM, mCountries[i]);
-            //hm.put(COUNT, mCount[i]);
-            hm.put(FLAG, Integer.toString(mFlags[i]) );
-            mList.add(hm);
-        }
-
-*/
-
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }
@@ -132,15 +105,6 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-
-        /*appy
-        String[] from = { FLAG,ITEM};
-        int[] to = { R.id.flag , R.id.tvListGroup};
-        mAdapter = new SimpleAdapter(getActionBar().getThemedContext(), mList, R.layout.list_group, from, to);
-        mDrawerExpListView.setAdapter(mAdapter);
-        mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerExpListView;
-        //appy*/
 
         setupExpList();
         expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
