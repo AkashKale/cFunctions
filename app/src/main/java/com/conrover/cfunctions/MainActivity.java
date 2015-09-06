@@ -2,6 +2,8 @@ package com.conrover.cfunctions;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +48,7 @@ import static android.app.ActivityOptions.makeSceneTransitionAnimation;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnClickListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -57,13 +60,14 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
     String position;
-    ExpandableListView elvList; //Our ExpandableListView
+    ExpandableListView elvList;
+     SearchView svSearch;//Our ExpandableListView
     ExpandableListAdapter listAdapter; //Adapter to add items to elvList
     List<String> groupNames;    //titles of each section
     HashMap<String,List<String>> listItems; //contents of elvList
     private Resources MainActivity;
     SharedPreferences sp;
-
+    SearchManager searchManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +81,29 @@ public class MainActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         elvList=(ExpandableListView)findViewById(R.id.elvList);
+        svSearch=(SearchView)findViewById(R.id.svSearch);
         setupExpList();
 
         new loadheaderfile().execute();
         listAdapter = new ExpandableListAdapter(this, groupNames, listItems);
         elvList.setAdapter(listAdapter);
         elvList.setOnChildClickListener(this);
-        //elvList.setOnGroupClickListener(this);
+        searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        svSearch.setIconifiedByDefault(false);
+        svSearch.setOnQueryTextListener(this);
+        //svSearch.setOnCloseListener(this);
+        //svSearch.setOnSearchClickListener(this);
+        //ExpandAll();
 
+
+    }
+    private  void ExpandAll(){
+        int count=listAdapter.getGroupCount();
+        for(int i=0;i<count;i++)
+        {
+            elvList.expandGroup(i);
+        }
     }
     //setup Contents of ExpandableListView
     private void setupExpList() {
@@ -139,6 +158,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        listAdapter.FilterData(query);
+        ExpandAll();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        listAdapter.FilterData(newText);
+        ExpandAll();
+        return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        listAdapter.FilterData("");
+        ExpandAll();
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
     }
 
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
@@ -211,8 +255,8 @@ public class MainActivity extends AppCompatActivity
                     locallist = new ArrayList<String>(Arrays.asList(temp));
 
                     //for (int i = 0; i < groupNames.size(); i++) {
-                        //if(i==2){
-                        listItems.put(groupNames.get(j), locallist);
+                    //if(i==2){
+                    listItems.put(groupNames.get(j), locallist);
                     //}
                     j++;
                 }
@@ -222,9 +266,13 @@ public class MainActivity extends AppCompatActivity
             }
             catch(Exception e){
                 e.printStackTrace();
-        }
+            }
             listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
             elvList.setAdapter(listAdapter);
+            //searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            //svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            //svSearch.setIconifiedByDefault(false);
+            //svSearch.setOnQueryTextListener(this);
         }
     }
     @Override
