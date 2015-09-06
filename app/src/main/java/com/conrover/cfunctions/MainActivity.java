@@ -3,12 +3,15 @@ package com.conrover.cfunctions;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +29,11 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -43,10 +51,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.app.ActivityOptions.makeSceneTransitionAnimation;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, View.OnClickListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, SearchView.OnQueryTextListener, View.OnClickListener, SearchView.OnCloseListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -58,19 +67,22 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
     String position;
-    ExpandableListView elvList; //Our ExpandableListView
+    ExpandableListView elvList;
+     SearchView svSearch;//Our ExpandableListView
     ExpandableListAdapter listAdapter; //Adapter to add items to elvList
     List<String> groupNames;    //titles of each section
     HashMap<String,List<String>> listItems; //contents of elvList
     private Resources MainActivity;
     SharedPreferences sp;
+    SearchManager searchManager;
     FloatingActionButton fab;
+    boolean searchViewVisible=false;
+    LinearLayout searchBoxLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -80,6 +92,7 @@ public class MainActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         elvList=(ExpandableListView)findViewById(R.id.elvList);
+        svSearch=(SearchView)findViewById(R.id.svSearch);
         setupExpList();
 
         new loadheaderfile().execute();
@@ -90,7 +103,23 @@ public class MainActivity extends AppCompatActivity
         fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(this);
         //elvList.setOnGroupClickListener(this);
+        searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        svSearch.setIconifiedByDefault(false);
+        svSearch.setOnQueryTextListener(this);
+        svSearch.setOnCloseListener(this);
+        svSearch.setOnSearchClickListener(this);
+        searchBoxLayout=(LinearLayout)findViewById(R.id.searchBoxLayout);
+        //ExpandAll();
 
+
+    }
+    private  void ExpandAll(){
+        int count=listAdapter.getGroupCount();
+        for(int i=0;i<count;i++)
+        {
+            elvList.expandGroup(i);
+        }
     }
     //setup Contents of ExpandableListView
     private void setupExpList() {
@@ -148,16 +177,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        searchViewVisible=!searchViewVisible;
+        searchBoxLayout.setVisibility(View.INVISIBLE);
+        super.onBackPressed();
+    }
+
+    @Override
     public void onClick(View view) {
-        View vSearchBox=((ViewStub) findViewById(R.id.stub_import)).inflate();
-        EditText etSearchBox=(EditText)findViewById(R.id.etSearchBox);
-        etSearchBox.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(getBaseContext().INPUT_METHOD_SERVICE);
-        imm.showSoftInput(etSearchBox, InputMethodManager.SHOW_IMPLICIT);
+        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+        svSearch.requestFocus();
+        searchBoxLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        listAdapter.FilterData(query);
+        ExpandAll();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Log.e("Text",newText);
+        listAdapter.FilterData(newText);
+        ExpandAll();
+        return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        searchBoxLayout.setVisibility(View.INVISIBLE);
+        listAdapter.FilterData("");
+        new loadheaderfile().execute();
+        ExpandAll();
+        return false;
     }
 
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
-
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
             //Log.e("Background","running");
@@ -226,8 +286,8 @@ public class MainActivity extends AppCompatActivity
                     locallist = new ArrayList<String>(Arrays.asList(temp));
 
                     //for (int i = 0; i < groupNames.size(); i++) {
-                        //if(i==2){
-                        listItems.put(groupNames.get(j), locallist);
+                    //if(i==2){
+                    listItems.put(groupNames.get(j), locallist);
                     //}
                     j++;
                 }
@@ -237,9 +297,13 @@ public class MainActivity extends AppCompatActivity
             }
             catch(Exception e){
                 e.printStackTrace();
-        }
+            }
             listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
             elvList.setAdapter(listAdapter);
+            //searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            //svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            //svSearch.setIconifiedByDefault(false);
+            //svSearch.setOnQueryTextListener(this);
         }
     }
     @Override
@@ -299,14 +363,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         //if(groupPosition==2 && childPosition==1)
         //{
-            Intent i=new Intent(this,DetailsActivity.class);
-            Bundle b=new Bundle();
-            String grpname=(String)listAdapter.getGroup(groupPosition);
-            String funname=(String)listAdapter.getChild(groupPosition,childPosition);
-            b.putString("header",grpname);
-            b.putString("function_name",funname);
-            i.putExtras(b);
-            startActivity(i);
+        InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        Intent i=new Intent(this,DetailsActivity.class);
+        Bundle b=new Bundle();
+        String grpname=(String)listAdapter.getGroup(groupPosition);
+        String funname=(String)listAdapter.getChild(groupPosition,childPosition);
+        b.putString("header", grpname);
+        b.putString("function_name", funname);
+        i.putExtras(b);
+        startActivity(i);
+        onClose();
        // }
         return true;
     }

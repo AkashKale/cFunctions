@@ -8,34 +8,41 @@
          space available using match_parent in both dimensions. -->
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
         <ExpandableListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/elvList"
             android:divider="@color/divider"
             android:dividerHeight="0.1dp"
-            android:paddingTop="8dp"
+            android:paddingTop="30dp"
             android:paddingBottom="8dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"/>
-        <ViewStub
-            android:id="@+id/stub_import"
-            android:inflatedId="@+id/panel_import"
-            android:layout="@layout/search_box"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_search"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="bottom|right"/>
+            android:layout_gravity="bottom"
+            android:weightSum="100">
+            <include layout="@layout/search_box"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="95">
+            </include>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_search"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="5"
+                android:layout_gravity="bottom|right"/>
+        </LinearLayout>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

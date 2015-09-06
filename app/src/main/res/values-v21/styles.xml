@@ -36,4 +36,9 @@
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>
     </style>
+
+    <style name="floating_action_button">
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
 </resources>

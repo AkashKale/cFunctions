@@ -2,6 +2,9 @@ package com.conrover.cfunctions;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,25 +12,41 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Akash on 27-08-2015.
  */
-public class ExpandableListAdapter extends BaseExpandableListAdapter{
+public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
     private List<String> _groupNames; // header titles
     // child data in format of header title, child title
-    private HashMap<String,List<String>> _listItems;
+    private HashMap<String, List<String>> _listItems;
+
+    private List<String> original_groupNames;
+    private HashMap<String, List<String>> original_listitems;
 
     public ExpandableListAdapter(Context context, List<String> groupNames,
                                  HashMap<String, List<String>> listItems) {
         this._context = context;
         this._groupNames = groupNames;
         this._listItems = listItems;
+        this.original_groupNames = groupNames;
+        this.original_listitems = listItems;
         //Log.e("Constructor", "Working");
     }
 
@@ -85,6 +104,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         //Log.e("Header", "Working"+tvListGroup.getText());
         return convertView;
     }
+
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -108,4 +128,122 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     public boolean isChildSelectable(int i, int i1) {
         return true;
     }
+
+    public void FilterData(String query) {
+        query = query.toLowerCase();
+        HashMap<String,List<String>> copyhp=new HashMap<String,List<String>>(this._listItems);
+        ArrayList<String> copylist=new ArrayList<String>(this._groupNames);
+        this._groupNames.clear();
+        this._listItems.clear();
+        if (query.isEmpty()) {
+            this._groupNames.addAll(copylist);
+            this._listItems.putAll(copyhp);
+        } else {
+            ArrayList<String> newgrp=new ArrayList<String>();
+            HashMap<String,List<String>> newhp=new HashMap<String,List<String>>();
+            int grpflag=0;
+            for (Map.Entry<String,List<String>> entry : copyhp.entrySet()) {
+                String key = entry.getKey();
+                grpflag=0;
+                List<String> value = entry.getValue();
+                List<String> newlist=new ArrayList<String>();
+                for(String entry2:value){
+                    if(entry2.contains(query))
+                    {
+                        newlist.add(entry2);
+                        grpflag=1;
+                    }
+                }
+                if(grpflag==1)
+                {
+                    newgrp.add(key);
+                    newhp.put(key, newlist);
+                    //_groupNames.add(key);
+                    //_listItems.put(key,newlist);
+                }
+
+            }
+            this._groupNames.addAll(newgrp);
+            this._listItems.putAll(newhp);
+            notifyDataSetChanged();
+        }
+    }
+
+    /*public class abc extends AppCompatActivity {
+        public String loadJSONFromAsset2() {
+            StringBuilder stringBuilder = new StringBuilder();
+            try {
+                InputStream is = getAssets().open("headerfileinfo.json");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+
+                bufferedReader.close();
+                return stringBuilder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        public void jstdoit(String query)
+        {
+            new loadnewdatafrom().execute(query);
+        }
+*/
+       /*public class loadnewdatafrom extends AsyncTask<String,Integer,HashMap<String,List<String>>>{
+           ArrayList<String> newgrpnames;
+           @Override
+           protected HashMap<String, List<String>> doInBackground(String... params) {
+               newgrpnames=new ArrayList<String>();
+               HashMap<String,List<String>> newlistitems=new HashMap<String,List<String>>();
+               List<String> locallist = null;
+               int grpflag;
+               try {
+                   int j = 0;
+                   JSONObject jobj = new JSONObject(loadJSONFromAsset2());
+                   JSONArray arr = jobj.getJSONArray("headfile");
+                   while (j < arr.length()) {
+                       JSONObject obj = arr.getJSONObject(j);
+                       String name=obj.getString("name");
+                       JSONArray inside_array = obj.getJSONArray("fun_name");
+                       String[] temp = new String[inside_array.length()];
+                       grpflag=0;
+                       for (int i = 0; i < inside_array.length(); i++) {
+                           JSONObject inside_obj = inside_array.getJSONObject(i);
+                           String chk=inside_obj.getString("fun");
+                           if(chk.contains("s")) {
+                               grpflag=1;
+                               temp[i] = inside_obj.getString("fun");
+                           }
+                       }
+                       locallist = new ArrayList<String>(Arrays.asList(temp));
+                       if(grpflag==1)
+                       {
+                            _groupNames.add(name);
+                           _listItems.put(name, locallist);
+                       }
+                       j++;
+                   }
+                return newlistitems;
+               }
+               catch(Exception e){
+                   e.printStackTrace();
+               }
+               //listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
+               //elvList.setAdapter(listAdapter);
+               return null;
+           }
+
+           @Override
+           protected void onPostExecute(HashMap<String,List<String>> strings) {
+               super.onPostExecute(strings);
+               _groupNames.addAll(newgrpnames);
+               _listItems.putAll(strings);
+           }
+       }
+
+
+    }*/
 }
