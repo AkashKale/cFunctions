@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, SearchView.OnQueryTextListener, View.OnClickListener, SearchView.OnCloseListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, SearchView.OnQueryTextListener, View.OnClickListener, SearchView.OnCloseListener, View.OnFocusChangeListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         elvList=(ExpandableListView)findViewById(R.id.elvList);
         svSearch=(SearchView)findViewById(R.id.svSearch);
+        svSearch.setOnQueryTextFocusChangeListener(this);
         setupExpList();
 
         new loadheaderfile().execute();
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity
              return null;
     }
 
+
     @Override
     public void onBackPressed() {
         Log.e("Backpressed","true");
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity
             ExpandAll();
         }else{
             Log.e("Text", "isempty");
-            searchBoxLayout.setVisibility(View.INVISIBLE);
+            //searchBoxLayout.setVisibility(View.INVISIBLE);
             new loadheaderfile().execute();
         }
         return false;
@@ -208,6 +210,23 @@ public class MainActivity extends AppCompatActivity
         listAdapter.FilterData("");
         new loadheaderfile().execute();
         return false;
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        //if(searchViewVisible)
+        //{
+            searchBoxLayout.setVisibility(View.INVISIBLE);
+            searchViewVisible=false;
+        //}
+        /*else
+        {
+            searchBoxLayout.setVisibility(View.VISIBLE);
+            searchViewVisible=true;
+        }*/
+        //searchViewVisible=false;
+        //searchBoxLayout.setVisibility(View.INVISIBLE);
+        Log.e("fsfs","sdfsfasdfsfafd");
     }
 
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
@@ -349,13 +368,13 @@ public class MainActivity extends AppCompatActivity
             super(context, attrs);
         }
 
-        public CustomSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
+        /*public CustomSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
         }
 
         public CustomSearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             super(context, attrs, defStyleAttr, defStyleRes);
-        }
+        }*/
 
         public CustomSearchView(Context context) {
             super(context);
