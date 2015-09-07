@@ -45,8 +45,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this._context = context;
         this._groupNames = groupNames;
         this._listItems = listItems;
-        this.original_groupNames = groupNames;
-        this.original_listitems = listItems;
+        original_groupNames=new ArrayList<String>(groupNames);
+        original_listitems=new HashMap<String,List<String>>(listItems);
+        //this.original_groupNames = groupNames;
+        //this.original_listitems = listItems;
         //Log.e("Constructor", "Working");
     }
 
@@ -131,18 +133,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     public void FilterData(String query) {
         query = query.toLowerCase();
-        HashMap<String,List<String>> copyhp=new HashMap<String,List<String>>(this._listItems);
-        ArrayList<String> copylist=new ArrayList<String>(this._groupNames);
+        //HashMap<String,List<String>> copyhp=new HashMap<String,List<String>>(this._listItems);
+        //ArrayList<String> copylist=new ArrayList<String>(this._groupNames);
         this._groupNames.clear();
         this._listItems.clear();
         if (query.isEmpty()) {
-            this._groupNames.addAll(copylist);
-            this._listItems.putAll(copyhp);
+            this._groupNames.addAll(original_groupNames);
+            this._listItems.putAll(original_listitems);
+            //this._groupNames.addAll(copylist);
+            //this._listItems.putAll(copyhp);
         } else {
             ArrayList<String> newgrp=new ArrayList<String>();
             HashMap<String,List<String>> newhp=new HashMap<String,List<String>>();
             int grpflag=0;
-            for (Map.Entry<String,List<String>> entry : copyhp.entrySet()) {
+            for (Map.Entry<String,List<String>> entry : original_listitems.entrySet()) {
                 String key = entry.getKey();
                 grpflag=0;
                 List<String> value = entry.getValue();
@@ -158,8 +162,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 {
                     newgrp.add(key);
                     newhp.put(key, newlist);
-                    //_groupNames.add(key);
-                    //_listItems.put(key,newlist);
                 }
 
             }
@@ -168,82 +170,4 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             notifyDataSetChanged();
         }
     }
-
-    /*public class abc extends AppCompatActivity {
-        public String loadJSONFromAsset2() {
-            StringBuilder stringBuilder = new StringBuilder();
-            try {
-                InputStream is = getAssets().open("headerfileinfo.json");
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-
-                bufferedReader.close();
-                return stringBuilder.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-        public void jstdoit(String query)
-        {
-            new loadnewdatafrom().execute(query);
-        }
-*/
-       /*public class loadnewdatafrom extends AsyncTask<String,Integer,HashMap<String,List<String>>>{
-           ArrayList<String> newgrpnames;
-           @Override
-           protected HashMap<String, List<String>> doInBackground(String... params) {
-               newgrpnames=new ArrayList<String>();
-               HashMap<String,List<String>> newlistitems=new HashMap<String,List<String>>();
-               List<String> locallist = null;
-               int grpflag;
-               try {
-                   int j = 0;
-                   JSONObject jobj = new JSONObject(loadJSONFromAsset2());
-                   JSONArray arr = jobj.getJSONArray("headfile");
-                   while (j < arr.length()) {
-                       JSONObject obj = arr.getJSONObject(j);
-                       String name=obj.getString("name");
-                       JSONArray inside_array = obj.getJSONArray("fun_name");
-                       String[] temp = new String[inside_array.length()];
-                       grpflag=0;
-                       for (int i = 0; i < inside_array.length(); i++) {
-                           JSONObject inside_obj = inside_array.getJSONObject(i);
-                           String chk=inside_obj.getString("fun");
-                           if(chk.contains("s")) {
-                               grpflag=1;
-                               temp[i] = inside_obj.getString("fun");
-                           }
-                       }
-                       locallist = new ArrayList<String>(Arrays.asList(temp));
-                       if(grpflag==1)
-                       {
-                            _groupNames.add(name);
-                           _listItems.put(name, locallist);
-                       }
-                       j++;
-                   }
-                return newlistitems;
-               }
-               catch(Exception e){
-                   e.printStackTrace();
-               }
-               //listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
-               //elvList.setAdapter(listAdapter);
-               return null;
-           }
-
-           @Override
-           protected void onPostExecute(HashMap<String,List<String>> strings) {
-               super.onPostExecute(strings);
-               _groupNames.addAll(newgrpnames);
-               _listItems.putAll(strings);
-           }
-       }
-
-
-    }*/
 }

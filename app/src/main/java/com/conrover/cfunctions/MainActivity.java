@@ -1,17 +1,14 @@
 package com.conrover.cfunctions;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,43 +16,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Transition;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.view.Window;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.app.ActivityOptions.makeSceneTransitionAnimation;
-import static android.app.PendingIntent.getActivity;
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, SearchView.OnQueryTextListener, View.OnClickListener, SearchView.OnCloseListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ExpandableListView.OnChildClickListener, SearchView.OnQueryTextListener, View.OnClickListener, SearchView.OnCloseListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -67,12 +53,11 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
     String position;
-    ExpandableListView elvList;
-     SearchView svSearch;//Our ExpandableListView
+    ExpandableListView elvList;//Our ExpandableListView
+    SearchView svSearch;//Our SearchView
     ExpandableListAdapter listAdapter; //Adapter to add items to elvList
     List<String> groupNames;    //titles of each section
     HashMap<String,List<String>> listItems; //contents of elvList
-    private Resources MainActivity;
     SharedPreferences sp;
     SearchManager searchManager;
     FloatingActionButton fab;
@@ -102,7 +87,6 @@ public class MainActivity extends AppCompatActivity
 
         fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(this);
-        //elvList.setOnGroupClickListener(this);
         searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         svSearch.setIconifiedByDefault(false);
@@ -110,9 +94,6 @@ public class MainActivity extends AppCompatActivity
         svSearch.setOnCloseListener(this);
         svSearch.setOnSearchClickListener(this);
         searchBoxLayout=(LinearLayout)findViewById(R.id.searchBoxLayout);
-        //ExpandAll();
-
-
     }
     private  void ExpandAll(){
         int count=listAdapter.getGroupCount();
@@ -172,15 +153,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-        return false;
-    }
-
-    @Override
     public void onBackPressed() {
+        Log.e("Backpressed","true");
         searchViewVisible=!searchViewVisible;
         searchBoxLayout.setVisibility(View.INVISIBLE);
-        super.onBackPressed();
+        //super.onBackPressed();
     }
 
     @Override
@@ -188,7 +165,16 @@ public class MainActivity extends AppCompatActivity
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
         svSearch.requestFocus();
-        searchBoxLayout.setVisibility(View.VISIBLE);
+        if(searchViewVisible)
+        {
+            searchBoxLayout.setVisibility(View.INVISIBLE);
+            searchViewVisible=false;
+        }
+        else
+        {
+            searchBoxLayout.setVisibility(View.VISIBLE);
+            searchViewVisible=true;
+        }
     }
 
     @Override
@@ -200,20 +186,27 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        Log.e("Text",newText);
-        listAdapter.FilterData(newText);
-        ExpandAll();
+        Log.e("Text", newText);
+        if(!newText.isEmpty()) {
+            listAdapter.FilterData(newText);
+            ExpandAll();
+        }else{
+            Log.e("Text", "isempty");
+            searchBoxLayout.setVisibility(View.INVISIBLE);
+            new loadheaderfile().execute();
+        }
         return false;
     }
 
     @Override
     public boolean onClose() {
+        Log.e("onclose", "true");
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
         searchBoxLayout.setVisibility(View.INVISIBLE);
         listAdapter.FilterData("");
         new loadheaderfile().execute();
-        ExpandAll();
         return false;
     }
 
@@ -231,26 +224,14 @@ public class MainActivity extends AppCompatActivity
                 else{
                     m_jArry = obj.getJSONArray("alphabets");
                 }
-                //ArrayList<HashMap<String, String>> formList = new ArrayList<HashMap<String, String>>();
-                //HashMap<String, String> m_li;
-
                 for (int i = 0; i < m_jArry.length(); i++) {
                     JSONObject jo_inside = m_jArry.getJSONObject(i);
-                   // Log.d("Details-->", jo_inside.getString("formule"));
                     String name = jo_inside.getString("name");
-                    //String url_value = jo_inside.getString("url");
-
-                    //Add your values in your `ArrayList` as below:
-                    //m_li = new HashMap<String, String>();
-                    //m_li.put("formule", formula_value);
-                    //m_li.put("url", url_value);
                     temp.add(name);
-                    //formList.add(m_li);
                 }
                 return temp;
             } catch (JSONException e) {
-                //e.printStackTrace();
-                //Toast.makeText(getBaseContext(),e.toString(),Toast.LENGTH_LONG).show();
+                e.printStackTrace();
             }
             return null;
         }
@@ -258,13 +239,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
             super.onPostExecute(strings);
-            //Log.e("PostExecute", "running");
             groupNames = new ArrayList<String>(strings);
+            listItems.clear();
             List<String> locallist = null;
-            List<String> functions = new ArrayList<String>();
-            for (int i = 0; i < 5; i++) {
-                functions.add("getc");
-            }
             try {
                 int j = 0;
                 JSONObject jobj = new JSONObject(loadJSONFromAsset());
@@ -284,26 +261,17 @@ public class MainActivity extends AppCompatActivity
                         temp[i] = inside_obj.getString("fun");
                     }
                     locallist = new ArrayList<String>(Arrays.asList(temp));
-
-                    //for (int i = 0; i < groupNames.size(); i++) {
-                    //if(i==2){
                     listItems.put(groupNames.get(j), locallist);
-                    //}
                     j++;
                 }
-                //else{
-                //listItems.put(groupNames.get(i), functions);
-                // }// Header, Child data
             }
             catch(Exception e){
                 e.printStackTrace();
             }
             listAdapter = new ExpandableListAdapter(MainActivity.this, groupNames, listItems);
             elvList.setAdapter(listAdapter);
-            //searchManager= (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            //svSearch.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            //svSearch.setIconifiedByDefault(false);
-            //svSearch.setOnQueryTextListener(this);
+            Log.e("Groupnames",groupNames.size()+"");
+            Log.e("listitems",listItems.size()+"");
         }
     }
     @Override
@@ -333,7 +301,6 @@ public class MainActivity extends AppCompatActivity
         actionBar.setTitle(mTitle);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -361,8 +328,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        //if(groupPosition==2 && childPosition==1)
-        //{
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         Intent i=new Intent(this,DetailsActivity.class);
@@ -374,10 +339,39 @@ public class MainActivity extends AppCompatActivity
         i.putExtras(b);
         startActivity(i);
         onClose();
-       // }
         return true;
     }
 
+    //CustomSearchView class
+    public class CustomSearchView extends SearchView{
+
+        public CustomSearchView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public CustomSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        public CustomSearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
+
+        public CustomSearchView(Context context) {
+            super(context);
+        }
+
+        @Override
+        public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+            Log.e("Keyboard", "true");
+           // if (keyCode == KeyEvent.KEYCODE_BACK &&
+            //        event.getAction() == KeyEvent.ACTION_UP) {
+
+                return true;
+            //}
+            //return super.dispatchKeyEvent(event);
+        }
+    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -388,7 +382,7 @@ public class MainActivity extends AppCompatActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
+        /**x
          * Returns a new instance of this fragment for the given section
          * number.
          */
