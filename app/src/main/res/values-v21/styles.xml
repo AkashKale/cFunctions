@@ -38,7 +38,7 @@
     </style>
 
     <style name="floating_action_button">
-        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_margin">18dp</item>
     </style>
 
 </resources>

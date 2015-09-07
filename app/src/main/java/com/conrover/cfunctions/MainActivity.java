@@ -153,15 +153,6 @@ public class MainActivity extends AppCompatActivity
              return null;
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Log.e("Backpressed","true");
-        searchViewVisible=!searchViewVisible;
-        searchBoxLayout.setVisibility(View.INVISIBLE);
-        //super.onBackPressed();
-    }
-
     @Override
     public void onClick(View view) {
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -182,6 +173,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
         listAdapter.FilterData(query);
+        searchViewVisible=false;
+        searchBoxLayout.setVisibility(View.INVISIBLE);
         ExpandAll();
         return false;
     }
@@ -349,6 +342,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        svSearch.setQuery("",false);
         Intent i=new Intent(this,DetailsActivity.class);
         Bundle b=new Bundle();
         String grpname=(String)listAdapter.getGroup(groupPosition);
@@ -357,7 +351,7 @@ public class MainActivity extends AppCompatActivity
         b.putString("function_name", funname);
         i.putExtras(b);
         startActivity(i);
-        onClose();
+        //onClose();
         return true;
     }
 

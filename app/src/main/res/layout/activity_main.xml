@@ -27,9 +27,10 @@
             <include layout="@layout/search_box"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="bottom"
                 android:layout_weight="95">
             </include>
             <android.support.design.widget.FloatingActionButton
@@ -37,10 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_search"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_weight="5"
-                android:layout_gravity="bottom|right"/>
+                android:layout_gravity="bottom|right"
+                style="@style/floating_action_button"/>
         </LinearLayout>
     </FrameLayout>
 
