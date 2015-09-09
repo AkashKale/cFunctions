@@ -361,12 +361,12 @@
     "parameters": "ap:A variable argument list.\n\ntype:The type of the argument.  "
   },
   {
-    "funname": " fprintf",
+    "funname": "fprintf",
     "header": "#include <stdio.h>",
     "desc": "In the C Programming Language, the fprintf function writes formatted output to stream.",
     "returns": "The fprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
     "syntax": "int fprintf(FILE *stream, const char *format, ...);",
-    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. "
+    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string.\n\n%d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros)"
   },
   {
     "funname": "fscanf",
@@ -374,7 +374,7 @@
     "desc": "In the C Programming Language, the fscanf function reads formatted output from stream.",
     "returns": "The fscanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
     "syntax": "int fscanf(FILE *stream, const char *format, ...);",
-    "parameters": "stream:The stream where the output will be read.\n\nformat: Describes the input as well as provides a placeholder to insert the formatted string.  "
+    "parameters": "stream:The stream where the output will be read.\n\nformat: Describes the input as well as provides a placeholder to insert the formatted string. \n\n%d  Reads an integer\n\n%f Reads a floating-point number in fixed decimal format\n\n%.1f Reads a floating-point number with 1 digit after the decimal\n\n%e Reads a floating-point number in exponential (scientific notation)\n\n%g Reads a floating-point number in either fixed decimal or exponential format depending on the size of the number"
   },
   {
     "funname": "printf",
@@ -382,7 +382,7 @@
     "desc": "In the C Programming Language, the printf function writes a formatted string to the stdout stream.",
     "returns": "The printf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
     "syntax": "int printf(const char *format, ...);",
-    "parameters": "format:Describes the output as well as provides a placeholder to insert the formatted string. "
+    "parameters": "format:Describes the output as well as provides a placeholder to insert the formatted string. \n\n%d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros)"
   },
   {
     "funname": "sprintf",
@@ -390,7 +390,7 @@
     "desc": "In the C Programming Language, the sprintf function writes formatted output to an object pointed to by s.",
     "returns": "The sprintf function returns the number of characters stored in the array (not including the null character).",
     "syntax": "int sprintf(char *s, const char *format, ...);",
-    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string."
+    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string.\n\n%d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros)"
   },
   {
     "funname": "scanf",
@@ -398,7 +398,7 @@
     "desc": "In the C Programming Language, the scanf function reads a formatted string from the stdin stream.",
     "returns": "The scanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
     "syntax": "int scanf(const char *format, ...);",
-    "parameters": "format: Describes the input as well as provides a placeholder to insert the formatted string. "
+    "parameters": "format: Describes the input as well as provides a placeholder to insert the formatted string.\n\n%d Reads an integer\n\n%f Reads a floating-point number in fixed decimal format\n\n%.1f Reads a floating-point number with 1 digit after the decimal\n\n%e Reads a floating-point number in exponential (scientific notation)\n\n%g Reads a floating-point number in either fixed decimal or exponential format depending on the size of the number"
   },
   {
     "funname": "sscanf",
@@ -406,7 +406,7 @@
     "desc": "In the C Programming Language, the sscanf function reads formatted output from an object pointed to by s.",
     "returns": "The sscanf function returns the number of characters that was read and stored. If an error occurs or end-of-file is reached before any items could be read, it will return EOF.",
     "syntax": "int sscanf(const char *s, const char *format, ...);",
-    "parameters": "stream:An array where the output will be read. \n\nformat: Describes the input as well as provides a placeholder to insert the formatted string.  "
+    "parameters": "stream:An array where the output will be read. \n\nformat: Describes the input as well as provides a placeholder to insert the formatted string. \n\n%d Reads an integer\n\n%f Reads a floating-point number in fixed decimal format\n\n%.1f Reads a floating-point number with 1 digit after the decimal\n\n%e Reads a floating-point number in exponential (scientific notation)\n\n%g Reads a floating-point number in either fixed decimal or exponential format depending on the size of the number"
   },
   {
     "funname": "vfprintf",
@@ -414,7 +414,7 @@
     "desc": "In the C Programming Language, the vfprintf function writes formatted output to stream using arg as the variable argument list.",
     "returns": "The vfprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
     "syntax": "int vfprintf(FILE *stream, const char *format, va_list arg);",
-    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. "
+    "parameters": "stream: The stream where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. %d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros)"
   },
   {
     "funname": "vprintf",
@@ -422,7 +422,7 @@
     "desc": "In the C Programming Language, the vprintf function writes a formatted string to the stdout stream using arg as the variable argument list.",
     "returns": "The vprintf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
     "syntax": "int vprintf(const char *format, va_list arg);",
-    "parameters": "format: Describes the output as well as provides a placeholder to insert the formatted string. \n\narg: A variable argument list. "
+    "parameters": "format: Describes the output as well as provides a placeholder to insert the formatted string. %d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros)\n\narg: A variable argument list. "
   },
   {
     "funname": "vsprintf",
@@ -430,7 +430,7 @@
     "desc": "In the C Programming Language, the vsprintf function writes formatted output to an object pointed to by s using arg as the variable argument list.",
     "returns": "The printf function returns the number of characters that was written. If an error occurs, it will return a negative value.",
     "syntax": "int vsprintf(char *s, const char *format, va_list arg);",
-    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string. \n\narg: A variable argument list. "
+    "parameters": "s:An array where the output will be written.\n\nformat: Describes the output as well as provides a placeholder to insert the formatted string.%d Display an integer\n\n%f Displays a floating-point number in fixed decimal format\n\n%.1f Displays a floating-point number with 1 digit after the decimal\n\n%e Display a floating-point number in exponential (scientific notation)\n\n%g Display a floating-point number in either fixed decimal or exponential format depending on the size of the number (will not display trailing zeros) \n\narg: A variable argument list. "
   },
   {
     "funname": "fclose",
@@ -451,7 +451,7 @@
   {
     "funname": "fopen",
     "header": "#include <stdio.h>",
-    "desc": "In the C Programming Language, the fopen function opens a file called filename and associates it to stream. The fopen function clears all error and EOF indictors for the stream.",
+    "desc": "In the C Programming Language, the fopen function opens a file called filename and associates it to stream. The fopen function clears all error and EOF indicators for the stream.",
     "returns": "The fopen function returns a file pointer for the new file. If a new file can not be opened, the fopen function returns a null pointer.",
     "syntax": "FILE *fopen(const char *filename, const char *mode);",
     "parameters": "filename: The filename to associate with the new file being opened.\n\nmode: The mode in which to open the file.  "
@@ -494,7 +494,7 @@
     "desc": "In the C Programming Language, the setvbuf function lets you change the way a stream is buffered and to control the size and location of the buffer.",
     "returns": "The setvbuf function returns zero if successful or a nonzero value if an error was encountered.",
     "syntax": "int setvbuf(FILE  *stream, char *buf, int mode, size_t size);",
-    "parameters": "stream:The stream to modify.\n\nbuf:A pointer to the desired buffer.\n\nmode:It is one of the following:\n\nMode 	Explanation\n\n_IOFBF 	Full buffering\n\n_IOLBF 	Line buffering\n\n_IONBF 	No buffering\n\nsize:The number of bytes in the buffer. "
+    "parameters": "stream:The stream to modify.\n\nbuf:A pointer to the desired buffer.\n\nmode:It is one of the following:\n\nMode  Explanation\n\n_IOFBF  Full buffering\n\n_IOLBF   Line buffering\n\n_IONBF   No buffering\n\nsize:The number of bytes in the buffer. "
   },
   {
     "funname": "tmpfile",
@@ -638,7 +638,7 @@
     "desc": "In the C Programming Language, the fseek function changes the file position indicator for the stream pointed to by stream.",
     "returns": "The fseek function returns zero if successful. If an error occurs, the fseek function will return a nonzero value.",
     "syntax": "int fseek(FILE *stream, long int offset, int whence)",
-    "parameters": "stream:The stream whose file position indicator is to be modified.\n\noffset:The offset to use (in bytes) when determining the new file position.\n\nwhence:It can be one of the following values"
+    "parameters": "stream:The stream whose file position indicator is to be modified.\n\noffset:The offset to use (in bytes) when determining the new file position.\n\nwhence:It can be one of the following values\n\nSEEK_SET The new file position will be the beginning of the file plus offset (in bytes).\n\nSEEK_CUR The new file position will be the current position plus offset (in bytes).\n\nSEEK_END The new file position will be the end of the file plus offset (in bytes)."
   },
   {
     "funname": "fsetpos",
@@ -1123,7 +1123,7 @@
   {
     "funname": "localtime",
     "header": "#include <time.h>",
-    "desc": "In the C Programming Language, the localtime function converts a calendar time (pointed to by timer) and returns a pointer to a structure containing a boken-down local time equivalent.",
+    "desc": "In the C Programming Language, the localtime function converts a calendar time (pointed to by timer) and returns a pointer to a structure containing a broken-down local time equivalent.",
     "returns": "The localtime function returns a pointer to a structure broken-down local time equivalent describing a calendar time pointed to by timer.",
     "syntax": "struct tm *localtime(const time_t *timer)",
     "parameters": "timer:A pointer to an object of type time_t that contains a time value to convert. "
@@ -1148,7 +1148,7 @@
     "funname": "clock",
     "header": "#include <time.h>",
     "desc": "In the C Programming Language, the clock function returns the elapsed processor time (as measured in clock ticks) since the beginning of the program execution.",
-    "returns": "The clock function returns the elapsed processor time (as measured in clock ticks) since the beginning of the program execution.If you want to determine the elapsed time in seconds, take the result of the clock function and divide by CLOCKS_PER_SEC.If there is an error (ie: the time is unavailable or can not be represented), the clock function will return -1.",
+    "returns": "The clock function returns the elapsed processor time (as measured in clock ticks) since the beginning of the program execution.If you want to determine the elapsed time in seconds, take the result of the clock function and divide by CLOCKS_PER_SEC.If there is an error (ie: the time is unavailable or cannot be represented), the clock function will return -1.",
     "syntax": "clock_t clock(void)",
     "parameters": "Null"
   },

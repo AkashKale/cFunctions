@@ -4,4 +4,12 @@
         android:key="position"
         android:defaultValue="0">
     </Preference>
+    <Preference
+        android:key="favorite_size"
+        android:defaultValue="1">
+    </Preference>
+    <Preference>
+        android:key="favorite_0"
+        android:defaultValue="0">
+    </Preference>
 </PreferenceScreen>

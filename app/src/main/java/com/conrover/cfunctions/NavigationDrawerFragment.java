@@ -2,6 +2,7 @@ package com.conrover.cfunctions;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import android.widget.ImageView;
@@ -69,6 +72,7 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
 
     private DrawerLayout mDrawerLayout;
     private ExpandableListView mDrawerExpListView;
+    private ListView lvFavorites;
 
     ExpandableListAdapter expListAdapter;
     List<String> groupNames;
@@ -82,6 +86,11 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     public int imageSet=0;
 
     private DrawerAdapter drawerAdapter;
+    private CustomListAdapter customListAdapter;
+
+    int favoritesSize;
+    ArrayList<String>favorites;
+
     public NavigationDrawerFragment() {
     }
 
@@ -116,8 +125,9 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDrawerExpListView = (ExpandableListView) inflater.inflate(
+        View drawerView=(View)inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+        mDrawerExpListView = (ExpandableListView)drawerView.findViewById(R.id.elvDrawer);
         mDrawerExpListView.setOnChildClickListener(this);
         mDrawerExpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,15 +136,30 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
                 selectItem(position);
             }
         });
-
         setupExpList();
         drawerAdapter=new DrawerAdapter(getActionBar().getThemedContext(),groupNames,listItems);
         mDrawerExpListView.setAdapter(drawerAdapter);
+        mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
         //expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
         //mDrawerExpListView.setAdapter(expListAdapter);
-        mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
+        favoritesSize=Integer.parseInt(sp.getString("favorite_size", "0"));
+        Log.e("favSize",favoritesSize+"");
+        favorites=new ArrayList<String>();
+        for(int i=0;i<favoritesSize;i++)
+        {
+            favorites.add(sp.getString("favorite_"+i,""));
+        }
+        customListAdapter=new CustomListAdapter(getActionBar().getThemedContext(),favorites);
+        lvFavorites=(ListView)drawerView.findViewById(R.id.lvFavorites);
+        lvFavorites.setAdapter(customListAdapter);
+        lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("Fav","Clicked");
+            }
+        });
 
-        return mDrawerExpListView;
+        return drawerView;
     }
 
     private void setupExpList() {
@@ -194,8 +219,16 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Log.e("Drawer","opened");
-
+                Log.e("Drawer", "opened");
+                favoritesSize=Integer.parseInt(sp.getString("favorite_size", "0"));
+                Log.e("favSize", favoritesSize + "");
+                favorites=new ArrayList<String>();
+                for(int i=0;i<favoritesSize;i++)
+                {
+                    favorites.add(sp.getString("favorite_"+i,""));
+                }
+                customListAdapter=new CustomListAdapter(getActionBar().getThemedContext(),favorites);
+                lvFavorites.setAdapter(customListAdapter);
                 drawerView.bringToFront();
                 mDrawerLayout.requestLayout();
                 if (!isAdded()) {
@@ -499,6 +532,41 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
         @Override
         public boolean isChildSelectable(int i, int i1) {
             return true;
+        }
+    }
+    public class CustomListAdapter extends BaseAdapter{
+
+        private Context context;
+        private ArrayList<String> favorites;
+        public CustomListAdapter(Context context,ArrayList<String>favorites)
+        {
+            this.context=context;
+            this.favorites=favorites;
+        }
+        @Override
+        public int getCount() {
+            return favorites.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return favorites.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            Log.e("getView","Pass");
+            View listitem=null;
+            LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            listitem=inflater.inflate(R.layout.list_item,viewGroup,false);
+            TextView tvListItem=(TextView)listitem.findViewById(R.id.tvListItem);
+            tvListItem.setText(favorites.get(i));
+            return listitem;
         }
     }
 }

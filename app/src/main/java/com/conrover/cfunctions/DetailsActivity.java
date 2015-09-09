@@ -2,11 +2,15 @@ package com.conrover.cfunctions;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,10 @@ public class DetailsActivity extends ActionBarActivity {
 
     TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc;
     String function_name,header,synt,desc,par,ret,hea;
+    boolean isFavorite=false;
+    int favoritesSize=0;
+    int favoritePosition=0;
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +52,52 @@ public class DetailsActivity extends ActionBarActivity {
         tvParameters= (TextView) findViewById(R.id.tvParameters);
         tvDesc= (TextView) findViewById(R.id.tvDesc);
         new loadfunction().execute();
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_details_activity, menu);
+        sp= PreferenceManager.getDefaultSharedPreferences(this);
+        favoritesSize = Integer.parseInt(sp.getString("favorite_size", "0"));
+        Log.e("favSize", favoritesSize + "");
+        for(int i=0;i<favoritesSize;i++)
+        {
+            Log.e(i+"",sp.getString("favorite_"+i,""));
+            if(sp.getString("favorite_"+i,"").equals(function_name))
+            {
+                isFavorite=true;
+                favoritePosition=i;
+                menu.getItem(0).setIcon(R.drawable.ic_action_toggle_star);
+                break;
+            }
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.onBackPressed();
+                break;
+            case R.id.menuitem_favorite:
+                if(isFavorite)
+                {
+                    isFavorite=false;
+                    favoritesSize--;
+                    item.setIcon(R.drawable.ic_action_toggle_star_outline);
+                    sp.edit().putString("favorite_size",favoritesSize+"").commit();
+                    sp.edit().remove("favorite_"+favoritePosition).commit();
+                }
+                else
+                {
+                    isFavorite=true;
+                    favoritesSize++;
+                    item.setIcon(R.drawable.ic_action_toggle_star);
+                    sp.edit().putString("favorite_size",favoritesSize+"").commit();
+                    sp.edit().putString("favorite_"+(favoritesSize-1),function_name).commit();
+                }
                 break;
         }
         return true;

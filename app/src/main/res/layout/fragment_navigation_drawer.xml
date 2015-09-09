@@ -1,11 +1,37 @@
-<ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:choiceMode="singleChoice"
-    android:divider="@color/divider"
-    android:dividerHeight="0dp"
-    android:background="#FFF"
-    tools:context=".NavigationDrawerFragment"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"/>
+    android:paddingRight="16dp"
+    tools:context=".NavigationDrawerFragment"
+    android:background="#FFF">
+    <ExpandableListView
+        android:id="@+id/elvDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/divider"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorites"
+        android:textSize="18sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="72dp"
+        android:textStyle="bold"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvFavorites"
+        android:divider="@null">
+    </ListView>
+</LinearLayout>
