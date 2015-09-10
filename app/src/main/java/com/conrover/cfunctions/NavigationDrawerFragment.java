@@ -41,6 +41,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -88,9 +89,8 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     private DrawerAdapter drawerAdapter;
     private CustomListAdapter customListAdapter;
 
-    int favoritesSize;
-    ArrayList<String>favorites;
-
+    Set<String> favoriteList;
+    ArrayList<String>favoriteListArray;
     public NavigationDrawerFragment() {
     }
 
@@ -142,16 +142,13 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
         mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
         //expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
         //mDrawerExpListView.setAdapter(expListAdapter);
-        favoritesSize=Integer.parseInt(sp.getString("favorite_size", "0"));
-        Log.e("favSize",favoritesSize+"");
-        favorites=new ArrayList<String>();
-        for(int i=0;i<favoritesSize;i++)
-        {
-            favorites.add(sp.getString("favorite_"+i,""));
+        lvFavorites = (ListView) drawerView.findViewById(R.id.lvFavorites);
+        favoriteList=sp.getStringSet("favorite_list",null);
+        if(favoriteList!=null) {
+            favoriteListArray = new ArrayList<String>(favoriteList);
+            customListAdapter = new CustomListAdapter(getActionBar().getThemedContext(), favoriteListArray);
+            lvFavorites.setAdapter(customListAdapter);
         }
-        customListAdapter=new CustomListAdapter(getActionBar().getThemedContext(),favorites);
-        lvFavorites=(ListView)drawerView.findViewById(R.id.lvFavorites);
-        lvFavorites.setAdapter(customListAdapter);
         lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -220,15 +217,12 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 Log.e("Drawer", "opened");
-                favoritesSize=Integer.parseInt(sp.getString("favorite_size", "0"));
-                Log.e("favSize", favoritesSize + "");
-                favorites=new ArrayList<String>();
-                for(int i=0;i<favoritesSize;i++)
-                {
-                    favorites.add(sp.getString("favorite_"+i,""));
+                favoriteList=sp.getStringSet("favorite_list",null);
+                if(favoriteList!=null) {
+                    favoriteListArray = new ArrayList<String>(favoriteList);
+                    customListAdapter = new CustomListAdapter(getActionBar().getThemedContext(), favoriteListArray);
+                    lvFavorites.setAdapter(customListAdapter);
                 }
-                customListAdapter=new CustomListAdapter(getActionBar().getThemedContext(),favorites);
-                lvFavorites.setAdapter(customListAdapter);
                 drawerView.bringToFront();
                 mDrawerLayout.requestLayout();
                 if (!isAdded()) {

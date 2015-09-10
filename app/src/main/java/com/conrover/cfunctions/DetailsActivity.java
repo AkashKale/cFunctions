@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -32,6 +33,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by sony on 29/08/2015.
@@ -41,8 +46,8 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
     TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc;
     String function_name,header,synt,desc,par,ret,hea;
     boolean isFavorite=false;
-    int favoritesSize=0;
-    int favoritePosition=0;
+    Set<String> favoriteList;
+    ArrayList<String> favoriteListArray;
     SharedPreferences sp;
     ListView lvSee;
     ArrayList<String> SimilarFunList;
@@ -70,17 +75,15 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_details_activity, menu);
         sp= PreferenceManager.getDefaultSharedPreferences(this);
-        favoritesSize = Integer.parseInt(sp.getString("favorite_size", "0"));
-        Log.e("favSize", favoritesSize + "");
-        for(int i=0;i<favoritesSize;i++)
+        favoriteList=sp.getStringSet("favorite_list", null);
+        favoriteListArray=new ArrayList<String>();
+        if(favoriteList!=null)
         {
-            Log.e(i+"",sp.getString("favorite_"+i,""));
-            if(sp.getString("favorite_"+i,"").equals(function_name))
+            if(favoriteList.contains(function_name))
             {
-                isFavorite=true;
-                favoritePosition=i;
+                isFavorite = true;
+                favoriteListArray=new ArrayList<String>(favoriteList);
                 menu.getItem(0).setIcon(R.drawable.ic_action_toggle_star);
-                break;
             }
         }
         return super.onCreateOptionsMenu(menu);
@@ -116,18 +119,18 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                 if(isFavorite)
                 {
                     isFavorite=false;
-                    favoritesSize--;
                     item.setIcon(R.drawable.ic_action_toggle_star_outline);
-                    sp.edit().putString("favorite_size",favoritesSize+"").commit();
-                    sp.edit().remove("favorite_"+favoritePosition).commit();
+                    favoriteListArray.remove(function_name);
+                    favoriteList=new HashSet<>(favoriteListArray);
+                    sp.edit().putStringSet("favorite_list",favoriteList).commit();
                 }
                 else
                 {
                     isFavorite=true;
-                    favoritesSize++;
                     item.setIcon(R.drawable.ic_action_toggle_star);
-                    sp.edit().putString("favorite_size",favoritesSize+"").commit();
-                    sp.edit().putString("favorite_"+(favoritesSize-1),function_name).commit();
+                    favoriteListArray.add(function_name);
+                    favoriteList=new HashSet<>(favoriteListArray);
+                    sp.edit().putStringSet("favorite_list",favoriteList).commit();
                 }
                 break;
         }
