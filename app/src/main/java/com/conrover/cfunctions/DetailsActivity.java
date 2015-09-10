@@ -1,16 +1,20 @@
 package com.conrover.cfunctions;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.Size;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,15 +55,19 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
     SharedPreferences sp;
     ListView lvSee;
     ArrayList<String> SimilarFunList;
+    ActionBar actionBar;
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailsactivity);
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         Bundle bundle=getIntent().getExtras();
         header= bundle.getString("header");
         function_name=bundle.getString("function_name");
+        actionBar.setTitle(function_name);
         tvHeaderFile= (TextView) findViewById(R.id.tvHeaderFile);
         tvSyntax= (TextView) findViewById(R.id.tvSyntax);
         tvReturns= (TextView) findViewById(R.id.tvReturns);
@@ -163,7 +171,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         String funname=(String)lvSee.getItemAtPosition(position);
         function_name=(String)lvSee.getItemAtPosition(position);
         Log.e("onitemclick",funname);
-
+        actionBar.setTitle(function_name);
         new loadfunction().execute();
     }
 
@@ -202,24 +210,32 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         }
        @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+           super.onPostExecute(s);
             tvHeaderFile.setText(hea);
             //tvHeaderFile.setText(header);
             tvSyntax.setText(synt);
             tvReturns.setText(ret);
             tvParameters.setText(par);
-            tvDesc.setText(desc);
+           tvDesc.setText(desc);
+           count=SimilarFunList.size();
            ArrayAdapter<String> adapter = new ArrayAdapter<String>(DetailsActivity.this, android.R.layout.simple_list_item_1,SimilarFunList) {
 
+               @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                @Override
                public View getView(int position, View convertView,
                                    ViewGroup parent) {
+                   count--;
                    View view =super.getView(position, convertView, parent);
 
                    TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
             /*YOUR CHOICE OF COLOR*/
                    textView.setTextColor(Color.WHITE);
+                   textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                   if(count==0)
+                   {
+                       textView.setPadding(0,0,0,50);
+                   }
                    return view;
                }
            };

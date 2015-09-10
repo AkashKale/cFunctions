@@ -81,7 +81,6 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     SharedPreferences sp;
-
     private SortByListAdapter sortByListAdapter;
     private FavoriteListAdapter favoriteListAdapter;
 
@@ -178,7 +177,14 @@ public class NavigationDrawerFragment extends Fragment {
         lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("Fav","Clicked");
+                String funname=(String)lvFavorites.getItemAtPosition(i);
+                Log.e("Fav",funname);
+                Intent intent=new Intent(getActionBar().getThemedContext(),DetailsActivity.class);
+                Bundle b=new Bundle();
+                b.putString("header", "none");
+                b.putString("function_name", funname);
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
         return drawerView;
