@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:background="@drawable/layout_border"
     android:visibility="invisible"
-    android:id="@+id/searchBoxLayout">
+    android:id="@+id/searchBoxLayout"
+    android:elevation="6dp">
     <SearchView
         android:id="@+id/svSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Search function here..."
-        android:alpha="0.5">
+        android:queryHint="Function name..."
+        android:alpha="0.75">
     </SearchView>
 </LinearLayout>

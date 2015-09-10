@@ -35,12 +35,14 @@
             </include>
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/ic_action_search"
                 android:layout_weight="5"
                 android:layout_gravity="bottom|right"
-                style="@style/floating_action_button"/>
+                style="@style/floating_action_button"
+                android:elevation="6dp"/>
         </LinearLayout>
     </FrameLayout>
 

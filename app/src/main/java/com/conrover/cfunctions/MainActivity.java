@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationSet;
+import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity
         svSearch.requestFocus();
         if(searchViewVisible)
         {
+            animateClose();
             searchBoxLayout.setVisibility(View.INVISIBLE);
             searchViewVisible=false;
         }
@@ -167,6 +171,7 @@ public class MainActivity extends AppCompatActivity
         {
             searchBoxLayout.setVisibility(View.VISIBLE);
             searchViewVisible=true;
+            animateOpen();
         }
     }
 
@@ -174,6 +179,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onQueryTextSubmit(String query) {
         listAdapter.FilterData(query);
         searchViewVisible=false;
+        animateClose();
         searchBoxLayout.setVisibility(View.INVISIBLE);
         ExpandAll();
         return false;
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity
         InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
+        animateClose();
         searchBoxLayout.setVisibility(View.INVISIBLE);
         listAdapter.FilterData("");
         new loadheaderfile().execute();
@@ -209,8 +216,9 @@ public class MainActivity extends AppCompatActivity
     public void onFocusChange(View view, boolean b) {
         //if(searchViewVisible)
         //{
-            searchBoxLayout.setVisibility(View.INVISIBLE);
-            searchViewVisible=false;
+        animateClose();
+        searchBoxLayout.setVisibility(View.INVISIBLE);
+        searchViewVisible=false;
         //}
         /*else
         {
@@ -219,9 +227,25 @@ public class MainActivity extends AppCompatActivity
         }*/
         //searchViewVisible=false;
         //searchBoxLayout.setVisibility(View.INVISIBLE);
-        Log.e("fsfs","sdfsfasdfsfafd");
+        Log.e("fsfs", "sdfsfasdfsfafd");
     }
 
+    void animateOpen()
+    {
+        final OvershootInterpolator interpolator = new OvershootInterpolator();
+        ViewCompat.animate(fab).alpha(0.5f).withLayer().rotation(135f/2).setDuration(200).start();
+        fab.setImageResource(R.drawable.ic_content_add);
+        ViewCompat.animate(fab).alpha(1).withLayer().rotation(135f).setDuration(200).setInterpolator(interpolator).start();
+        searchBoxLayout.animate().alpha(1).setDuration(400);
+    }
+    void animateClose()
+    {
+        final OvershootInterpolator interpolator = new OvershootInterpolator();
+        ViewCompat.animate(fab).alpha(0.5f).withLayer().rotation(135f / 2).setDuration(200).start();
+        fab.setImageResource(R.drawable.ic_action_search);
+        ViewCompat.animate(fab).alpha(1).withLayer().rotation(0).setDuration(200).setInterpolator(interpolator).start();
+        searchBoxLayout.animate().alpha(0).setDuration(400);
+    }
     public class loadheaderfile extends AsyncTask<Void,Integer,ArrayList<String>>{
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
