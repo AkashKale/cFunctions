@@ -48,7 +48,7 @@ import java.util.Set;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment implements ExpandableListView.OnChildClickListener {
+public class NavigationDrawerFragment extends Fragment {
 
     /**
      * Remember the position of the selected item.
@@ -72,22 +72,18 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ExpandableListView mDrawerExpListView;
+    private ListView mDrawerListView;
     private ListView lvFavorites;
 
-    ExpandableListAdapter expListAdapter;
-    List<String> groupNames;
-    HashMap<String,List<String>> listItems;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     SharedPreferences sp;
-    public int imageSet=0;
 
-    private DrawerAdapter drawerAdapter;
-    private CustomListAdapter customListAdapter;
+    private SortByListAdapter sortByListAdapter;
+    private FavoriteListAdapter favoriteListAdapter;
 
     Set<String> favoriteList;
     ArrayList<String>favoriteListArray;
@@ -110,8 +106,6 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
 
-
-
     }
 
     @Override
@@ -125,29 +119,61 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View drawerView=(View)inflater.inflate(
+        View drawerView=inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        mDrawerExpListView = (ExpandableListView)drawerView.findViewById(R.id.elvDrawer);
-        mDrawerExpListView.setOnChildClickListener(this);
-        mDrawerExpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDrawerListView = (ListView)drawerView.findViewById(R.id.elvDrawer);
+        sortByListAdapter=new SortByListAdapter(getActionBar().getThemedContext());
+        mDrawerListView.setAdapter(sortByListAdapter);
+        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Position clicked", position + "");
+                TextView tvClickedView=(TextView)view.findViewById(R.id.tvNavDrawer);
+                TextView tvNotClicked;
+                ImageView ivClicked=(ImageView)view.findViewById(R.id.ivNavDrawer);
+                ImageView ivNotClicked;
+                LinearLayout linearLayout;
+                SharedPreferences.Editor editor=sp.edit();
+                Log.e("Position Clicked",position+"");
+                switch(position)
+                {
+                    case 0:
+                        linearLayout=(LinearLayout)mDrawerListView.getChildAt(1);
+                        ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                        ivNotClicked.setImageResource(R.drawable.ic_function);
+                        ivClicked.setImageResource(R.drawable.ic_header_selected);
+                        tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                        tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                        tvClickedView.setTypeface(null, Typeface.BOLD);
+                        tvClickedView.setTextColor(getResources().getColor(R.color.primary));
+                        tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
+                        editor.putString("position", "0");
+                        editor.commit();
+                        break;
+                    case 1:
+                        linearLayout=(LinearLayout)mDrawerListView.getChildAt(0);
+                        ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                        ivNotClicked.setImageResource(R.drawable.ic_header);
+                        ivClicked.setImageResource(R.drawable.ic_function_selected);
+                        tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                        tvNotClicked.setTypeface(null, Typeface.NORMAL);
+                        tvClickedView.setTypeface(null, Typeface.BOLD);
+                        tvClickedView.setTextColor(getResources().getColor(R.color.primary));
+                        tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
+                        editor.putString("position", "1");
+                        editor.commit();
+                        break;
+                }
+                selectItem(0);
                 selectItem(position);
             }
         });
-        setupExpList();
-        drawerAdapter=new DrawerAdapter(getActionBar().getThemedContext(),groupNames,listItems);
-        mDrawerExpListView.setAdapter(drawerAdapter);
-        mDrawerExpListView.setItemChecked(mCurrentSelectedPosition, true);
-        //expListAdapter=new ExpandableListAdapter(getActionBar().getThemedContext(),groupNames,listItems);
-        //mDrawerExpListView.setAdapter(expListAdapter);
         lvFavorites = (ListView) drawerView.findViewById(R.id.lvFavorites);
         favoriteList=sp.getStringSet("favorite_list",null);
         if(favoriteList!=null) {
             favoriteListArray = new ArrayList<String>(favoriteList);
-            customListAdapter = new CustomListAdapter(getActionBar().getThemedContext(), favoriteListArray);
-            lvFavorites.setAdapter(customListAdapter);
+            favoriteListAdapter = new FavoriteListAdapter(getActionBar().getThemedContext(), favoriteListArray);
+            lvFavorites.setAdapter(favoriteListAdapter);
         }
         lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,24 +181,8 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
                 Log.e("Fav","Clicked");
             }
         });
-
         return drawerView;
     }
-
-    private void setupExpList() {
-        groupNames = new ArrayList<String>();
-        listItems = new HashMap<String, List<String>>();
-
-        // Adding group names
-        groupNames.add("Sort By");
-
-        // Adding list items
-        List<String> sortTypes = new ArrayList<String>();
-        sortTypes.add("Header Files");
-        sortTypes.add("Function Names");
-        listItems.put("Sort By", sortTypes); // Header, Child data
-    }
-
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
@@ -220,8 +230,8 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
                 favoriteList=sp.getStringSet("favorite_list",null);
                 if(favoriteList!=null) {
                     favoriteListArray = new ArrayList<String>(favoriteList);
-                    customListAdapter = new CustomListAdapter(getActionBar().getThemedContext(), favoriteListArray);
-                    lvFavorites.setAdapter(customListAdapter);
+                    favoriteListAdapter = new FavoriteListAdapter(getActionBar().getThemedContext(), favoriteListArray);
+                    lvFavorites.setAdapter(favoriteListAdapter);
                 }
                 drawerView.bringToFront();
                 mDrawerLayout.requestLayout();
@@ -261,8 +271,8 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
-        if (mDrawerExpListView != null) {
-            mDrawerExpListView.setItemChecked(position, true);
+        if (mDrawerListView != null) {
+            mDrawerListView.setItemChecked(position, true);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
@@ -277,8 +287,6 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            Log.e("onAttached","called");
-            imageSet++;
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
@@ -337,63 +345,6 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
-
-    @Override
-    public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-        //ExpandableListView elv;
-        TextView tvClickedView=(TextView)view.findViewById(R.id.tvNavDrawer);
-        TextView tvNotClicked;
-        ImageView ivClicked=(ImageView)view.findViewById(R.id.ivNavDrawer);
-        ImageView ivNotClicked;
-        LinearLayout linearLayout;
-        SharedPreferences.Editor editor=sp.edit();
-        switch(childPosition)
-        {
-            case 0:
-                linearLayout=(LinearLayout)expandableListView.getChildAt(2);
-                ivNotClicked=(ImageView)linearLayout.getChildAt(0);
-                ivNotClicked.setImageResource(R.drawable.ic_function);
-                ivClicked.setImageResource(R.drawable.ic_header_selected);
-                tvNotClicked=(TextView)linearLayout.getChildAt(1);
-                tvNotClicked.setTypeface(null, Typeface.NORMAL);
-                tvClickedView.setTypeface(null, Typeface.BOLD);
-                tvClickedView.setTextColor(getResources().getColor(R.color.primary));
-                tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
-                editor.putString("position", "0");
-                editor.commit();
-                break;
-            case 1:
-                linearLayout=(LinearLayout)expandableListView.getChildAt(1);
-                ivNotClicked=(ImageView)linearLayout.getChildAt(0);
-                ivNotClicked.setImageResource(R.drawable.ic_header);
-                ivClicked.setImageResource(R.drawable.ic_function_selected);
-                tvNotClicked=(TextView)linearLayout.getChildAt(1);
-                tvNotClicked.setTypeface(null, Typeface.NORMAL);
-                tvClickedView.setTypeface(null, Typeface.BOLD);
-                tvClickedView.setTextColor(getResources().getColor(R.color.primary));
-                tvNotClicked.setTextColor(getResources().getColor(R.color.text_color));
-                editor.putString("position", "1");
-                editor.commit();
-                break;
-        }
-        selectItem(0);
-        //startActivity(new Intent("android.intent.action.MainActivity"));
-        //getActivity().finish();
-        //getView().invalidate();
-        //getActivity().recreate();
-        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment fragment=getTargetFragment();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .detach(fragment)
-                .attach(fragment)
-                .commit();*/
-        return true;
-    }
-
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
@@ -404,135 +355,63 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
         void onNavigationDrawerItemSelected(int position);
     }
 
-    public class DrawerAdapter extends BaseExpandableListAdapter
+    public class SortByListAdapter extends BaseAdapter
     {
         private Context context;
-        HashMap<String,List<String>> listitems;
-        List<String> groupnames;
         String[] sortTypes;
         int[] images={R.drawable.ic_header,R.drawable.ic_function};
         int[] imagesSelected={R.drawable.ic_header_selected,R.drawable.ic_function_selected};
-        public DrawerAdapter(Context context,List<String> groupnames,HashMap<String,List<String>> listItems){
+        public SortByListAdapter(Context context){
             sortTypes=context.getResources().getStringArray(R.array.sort_types);
             this.context=context;
-            this.listitems=listItems;
-            this.groupnames=groupnames;
-        }
-
-        /*@Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View row=null;
-            if(view==null)
-            {
-                LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row=inflater.inflate(R.layout.drawer_layout,viewGroup,false);
-            }
-            else
-            {
-                row=view;
-            }
-            TextView tvNavDrawer=(TextView)row.findViewById(R.id.tvNavDrawer);
-            ImageView ivNavDrawer=(ImageView)row.findViewById(R.id.ivNavDrawer);
-            tvNavDrawer.setText(sortTypes[i]);
-            ivNavDrawer.setImageResource(images[i]);
-            return row;
-        }*/
-
-        @Override
-        public int getGroupCount() {
-            return this.groupnames.size();
         }
 
         @Override
-        public int getChildrenCount(int groupPosition) {
-            return this.listitems.get(this.groupnames.get(groupPosition))
-                    .size();
+        public int getCount() {
+            return sortTypes.length;
         }
 
         @Override
-        public Object getGroup(int groupPosition) {
-            return this.groupnames.get(groupPosition);
+        public Object getItem(int i) {
+            return sortTypes[i];
         }
 
         @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            return this.listitems.get(this.groupnames.get(groupPosition))
-                    .get(childPosition);
+        public long getItemId(int i) {
+            return i;
         }
 
         @Override
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean b, View convertView, ViewGroup viewGroup) {
-            String headerTitle = (String) getGroup(groupPosition);
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.list_group, null);
-            }
-
-            TextView tvListGroup = (TextView) convertView
-                    .findViewById(R.id.tvListGroup);
-            tvListGroup.setTypeface(null, Typeface.BOLD);
-            tvListGroup.setText(headerTitle);
-            //Log.e("Header", "Working"+tvListGroup.getText());
-            return convertView;
-        }
-
-        @Override
-        public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-            View row=null;
-            if(view==null)
-            {
-                LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row=inflater.inflate(R.layout.drawer_layout,viewGroup,false);
-            }
-            else
-            {
-                row=view;
-            }
-            if(imageSet<=2) {
-                Log.e("Image", "Set");
-                TextView tvNavDrawer = (TextView) row.findViewById(R.id.tvNavDrawer);
-                ImageView ivNavDrawer = (ImageView) row.findViewById(R.id.ivNavDrawer);
-                tvNavDrawer.setText(sortTypes[i1]);
-                ivNavDrawer.setImageResource(images[i1]);
-                int position=Integer.parseInt(sp.getString("position","0"));
+        public View getView(int i, View view, ViewGroup viewGroup)
+        {
+            View listItem=null;
+            if(view==null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                listItem = inflater.inflate(R.layout.drawer_layout, viewGroup, false);
+                TextView tvNavDrawer = (TextView) listItem.findViewById(R.id.tvNavDrawer);
+                ImageView ivNavDrawer = (ImageView) listItem.findViewById(R.id.ivNavDrawer);
+                tvNavDrawer.setText(sortTypes[i]);
+                ivNavDrawer.setImageResource(images[i]);
+                int position = Integer.parseInt(sp.getString("position", "0"));
                 Log.e("position", position + "");
-                if(position==i1)
-                {
-                    tvNavDrawer.setTypeface(null,Typeface.BOLD);
+                if (position == i) {
+                    tvNavDrawer.setTypeface(null, Typeface.BOLD);
                     tvNavDrawer.setTextColor(getResources().getColor(R.color.primary));
                     ivNavDrawer.setImageResource(imagesSelected[position]);
                 }
-                imageSet++;
             }
-            return row;
-        }
-
-        @Override
-        public boolean isChildSelectable(int i, int i1) {
-            return true;
+            else
+            {
+                listItem=view;
+            }
+            return listItem;
         }
     }
-    public class CustomListAdapter extends BaseAdapter{
+    public class FavoriteListAdapter extends BaseAdapter{
 
         private Context context;
         private ArrayList<String> favorites;
-        public CustomListAdapter(Context context,ArrayList<String>favorites)
+        public FavoriteListAdapter(Context context,ArrayList<String>favorites)
         {
             this.context=context;
             this.favorites=favorites;
@@ -554,12 +433,17 @@ public class NavigationDrawerFragment extends Fragment implements ExpandableList
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            Log.e("getView","Pass");
             View listitem=null;
-            LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            listitem=inflater.inflate(R.layout.list_item,viewGroup,false);
-            TextView tvListItem=(TextView)listitem.findViewById(R.id.tvListItem);
-            tvListItem.setText(favorites.get(i));
+            if(view==null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                listitem = inflater.inflate(R.layout.favorite_list_item, viewGroup, false);
+                TextView tvListItem = (TextView) listitem.findViewById(R.id.tvListItem);
+                tvListItem.setText(favorites.get(i));
+            }
+            else
+            {
+                listitem=view;
+            }
             return listitem;
         }
     }

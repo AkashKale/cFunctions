@@ -72,6 +72,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        isFavorite=false;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_details_activity, menu);
         sp= PreferenceManager.getDefaultSharedPreferences(this);
@@ -79,10 +80,10 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         favoriteListArray=new ArrayList<String>();
         if(favoriteList!=null)
         {
+            favoriteListArray=new ArrayList<String>(favoriteList);
             if(favoriteList.contains(function_name))
             {
                 isFavorite = true;
-                favoriteListArray=new ArrayList<String>(favoriteList);
                 menu.getItem(0).setIcon(R.drawable.ic_action_toggle_star);
             }
         }
@@ -111,6 +112,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.e("Option","Selected");
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.onBackPressed();
@@ -121,6 +123,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                     isFavorite=false;
                     item.setIcon(R.drawable.ic_action_toggle_star_outline);
                     favoriteListArray.remove(function_name);
+                    Log.e("fla", favoriteListArray.toString());
                     favoriteList=new HashSet<>(favoriteListArray);
                     sp.edit().putStringSet("favorite_list",favoriteList).commit();
                 }
@@ -129,6 +132,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                     isFavorite=true;
                     item.setIcon(R.drawable.ic_action_toggle_star);
                     favoriteListArray.add(function_name);
+                    Log.e("fla", favoriteListArray.toString());
                     favoriteList=new HashSet<>(favoriteListArray);
                     sp.edit().putStringSet("favorite_list",favoriteList).commit();
                 }
@@ -155,9 +159,11 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        invalidateOptionsMenu();
         String funname=(String)lvSee.getItemAtPosition(position);
         function_name=(String)lvSee.getItemAtPosition(position);
         Log.e("onitemclick",funname);
+
         new loadfunction().execute();
     }
 
@@ -186,19 +192,14 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                             JSONObject similar=seealso.getJSONObject(j);
                             SimilarFunList.add(similar.getString("similarfun"));
                         }
-
                     }
-
                 }
                 return ret;
             } catch (JSONException e) {
                 e.printStackTrace();
-
             }
             return ret;
-
         }
-
        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -219,7 +220,6 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
 
             /*YOUR CHOICE OF COLOR*/
                    textView.setTextColor(Color.WHITE);
-
                    return view;
                }
            };
@@ -227,7 +227,6 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
            //lvSee.setAdapter(new ArrayAdapter<String>(DetailsActivity.this, android.R.layout.simple_list_item_1, SimilarFunList));
            setListViewHeightBasedOnChildren(lvSee);
            lvSee.setOnItemClickListener(DetailsActivity.this);
-
         }
     }
 }

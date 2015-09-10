@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
     <TextView
+        android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="16dp"
         android:paddingBottom="20dp"
-        android:paddingLeft="72dp"
-        android:id="@+id/tvListGroup"
+        android:id="@+id/tvListItem"
         android:textColor="#212121"/>
 </LinearLayout>

@@ -101,7 +101,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView tvListGroup = (TextView) convertView
                 .findViewById(R.id.tvListGroup);
-        tvListGroup.setTypeface(null, Typeface.BOLD);
+        //tvListGroup.setTypeface(null, Typeface.BOLD);
         tvListGroup.setText(headerTitle);
         //Log.e("Header", "Working"+tvListGroup.getText());
         return convertView;

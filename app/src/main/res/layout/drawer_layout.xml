@@ -16,7 +16,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-
+        android:textColor="#212121"
         android:paddingLeft="30dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/tvNavDrawer" />
