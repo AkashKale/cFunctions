@@ -230,15 +230,18 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                    TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
             /*YOUR CHOICE OF COLOR*/
+
                    textView.setTextColor(Color.WHITE);
                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                    if(count==0)
                    {
-                       textView.setPadding(0,0,0,50);
+                       //Log.e("ohhhh","last");
+                       textView.setPadding(0, 0, 0,-20);
                    }
                    return view;
                }
            };
+           lvSee.setPadding(-11,-3,0,0);
            lvSee.setAdapter(adapter);
            //lvSee.setAdapter(new ArrayAdapter<String>(DetailsActivity.this, android.R.layout.simple_list_item_1, SimilarFunList));
            setListViewHeightBasedOnChildren(lvSee);
