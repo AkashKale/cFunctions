@@ -2,9 +2,7 @@ package com.conrover.cfunctions;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.graphics.Typeface;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -16,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,23 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -126,22 +112,19 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("Position clicked", position + "");
-                TextView tvClickedView=(TextView)view.findViewById(R.id.tvNavDrawer);
+                TextView tvClickedView = (TextView) view.findViewById(R.id.tvNavDrawer);
                 TextView tvNotClicked;
-                ImageView ivClicked=(ImageView)view.findViewById(R.id.ivNavDrawer);
+                ImageView ivClicked = (ImageView) view.findViewById(R.id.ivNavDrawer);
                 ImageView ivNotClicked;
                 LinearLayout linearLayout;
-                SharedPreferences.Editor editor=sp.edit();
-                Log.e("Position Clicked",position+"");
-                switch(position)
-                {
+                SharedPreferences.Editor editor = sp.edit();
+                switch (position) {
                     case 0:
-                        linearLayout=(LinearLayout)mDrawerListView.getChildAt(1);
-                        ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                        linearLayout = (LinearLayout) mDrawerListView.getChildAt(1);
+                        ivNotClicked = (ImageView) linearLayout.getChildAt(0);
                         ivNotClicked.setImageResource(R.drawable.ic_function);
                         ivClicked.setImageResource(R.drawable.ic_header_selected);
-                        tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                        tvNotClicked = (TextView) linearLayout.getChildAt(1);
                         tvNotClicked.setTypeface(null, Typeface.NORMAL);
                         tvClickedView.setTypeface(null, Typeface.BOLD);
                         tvClickedView.setTextColor(getResources().getColor(R.color.primary));
@@ -150,11 +133,11 @@ public class NavigationDrawerFragment extends Fragment {
                         editor.commit();
                         break;
                     case 1:
-                        linearLayout=(LinearLayout)mDrawerListView.getChildAt(0);
-                        ivNotClicked=(ImageView)linearLayout.getChildAt(0);
+                        linearLayout = (LinearLayout) mDrawerListView.getChildAt(0);
+                        ivNotClicked = (ImageView) linearLayout.getChildAt(0);
                         ivNotClicked.setImageResource(R.drawable.ic_header);
                         ivClicked.setImageResource(R.drawable.ic_function_selected);
-                        tvNotClicked=(TextView)linearLayout.getChildAt(1);
+                        tvNotClicked = (TextView) linearLayout.getChildAt(1);
                         tvNotClicked.setTypeface(null, Typeface.NORMAL);
                         tvClickedView.setTypeface(null, Typeface.BOLD);
                         tvClickedView.setTextColor(getResources().getColor(R.color.primary));
@@ -178,7 +161,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String funname=(String)lvFavorites.getItemAtPosition(i);
-                Log.e("Fav",funname);
                 Intent intent=new Intent(getActionBar().getThemedContext(),DetailsActivity.class);
                 Bundle b=new Bundle();
                 b.putString("header", "none");
@@ -232,7 +214,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Log.e("Drawer", "opened");
                 favoriteList=sp.getStringSet("favorite_list",null);
                 if(favoriteList!=null) {
                     favoriteListArray = new ArrayList<String>(favoriteList);
@@ -284,7 +265,6 @@ public class NavigationDrawerFragment extends Fragment {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
-            Log.e("callback","true");
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
     }
@@ -399,7 +379,6 @@ public class NavigationDrawerFragment extends Fragment {
                 tvNavDrawer.setText(sortTypes[i]);
                 ivNavDrawer.setImageResource(images[i]);
                 int position = Integer.parseInt(sp.getString("position", "0"));
-                Log.e("position", position + "");
                 if (position == i) {
                     tvNavDrawer.setTypeface(null, Typeface.BOLD);
                     tvNavDrawer.setTextColor(getResources().getColor(R.color.primary));
@@ -423,9 +402,7 @@ public class NavigationDrawerFragment extends Fragment {
             this.favorites=favorites;
         }
         @Override
-        public int getCount() {
-            return favorites.size();
-        }
+        public int getCount() {return favorites.size();}
 
         @Override
         public Object getItem(int i) {
@@ -440,16 +417,19 @@ public class NavigationDrawerFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             View listitem=null;
+            ViewHolder viewHolder = new ViewHolder();
             if(view==null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 listitem = inflater.inflate(R.layout.favorite_list_item, viewGroup, false);
-                TextView tvListItem = (TextView) listitem.findViewById(R.id.tvListItem);
-                tvListItem.setText(favorites.get(i));
+                viewHolder.txtTestText=(TextView) listitem.findViewById(R.id.tvListItem);
+                listitem.setTag(viewHolder);
             }
             else
             {
                 listitem=view;
+                viewHolder = (ViewHolder) listitem.getTag();
             }
+            viewHolder.txtTestText.setText(favorites.get(i));
             return listitem;
         }
     }
