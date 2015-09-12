@@ -94,8 +94,7 @@
             android:layout_width="fill_parent"
             android:layout_marginBottom="16dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>
 
