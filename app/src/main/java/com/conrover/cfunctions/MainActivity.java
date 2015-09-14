@@ -66,11 +66,35 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
     boolean searchViewVisible=false;
     LinearLayout searchBoxLayout;
-
+    String header,function_name,favflag;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //editor = sp.edit();
+        //editor.putString("favflag", "0");
+        //editor.commit();
+        sp= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        favflag=sp.getString("favflag", "0");
+        if(favflag.equals("1"))
+        {
+            Bundle bundle = getIntent().getExtras();
+            header = bundle.getString("header");
+            function_name = bundle.getString("function_name");
+            editor = sp.edit();
+            editor.putString("favflag","0");
+            editor.commit();
+            if (header.equals("Nothing")) {
+                Intent intent = new Intent(this, DetailsActivity.class);
+                Bundle b = new Bundle();
+                b.putString("header", "Nothing");
+                b.putString("function_name", function_name);
+                intent.putExtras(b);
+                //finish();
+                startActivity(intent);
+            }
+        }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();

@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -161,12 +162,16 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String funname=(String)lvFavorites.getItemAtPosition(i);
-                Intent intent=new Intent(getActionBar().getThemedContext(),DetailsActivity.class);
+                Intent intent=new Intent(getActionBar().getThemedContext(),MainActivity.class);
                 Bundle b=new Bundle();
-                b.putString("header", "none");
+                b.putString("header", "Nothing");
                 b.putString("function_name", funname);
                 intent.putExtras(b);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("favflag", "1");
+                editor.commit();
                 startActivity(intent);
+
             }
         });
         return drawerView;

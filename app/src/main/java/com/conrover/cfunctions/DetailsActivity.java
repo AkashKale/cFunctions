@@ -123,6 +123,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         Log.e("Option","Selected");
         switch (item.getItemId()) {
             case android.R.id.home:
+                //startActivity(new Intent("android.intent.action.MainActivity"));
                 this.onBackPressed();
                 break;
             case R.id.menuitem_favorite:
