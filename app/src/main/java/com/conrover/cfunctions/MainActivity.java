@@ -72,9 +72,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //editor = sp.edit();
-        //editor.putString("favflag", "0");
-        //editor.commit();
         sp= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         favflag=sp.getString("favflag", "0");
         if(favflag.equals("1"))
@@ -91,7 +88,6 @@ public class MainActivity extends AppCompatActivity
                 b.putString("header", "Nothing");
                 b.putString("function_name", function_name);
                 intent.putExtras(b);
-                //finish();
                 startActivity(intent);
             }
         }
