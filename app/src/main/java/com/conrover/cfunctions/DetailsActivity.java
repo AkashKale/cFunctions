@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ import java.util.Set;
 public class DetailsActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc;
+    ScrollView svMain;
     String function_name,header,synt,desc,par,ret,hea;
     boolean isFavorite=false;
     Set<String> favoriteList;
@@ -171,7 +173,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         invalidateOptionsMenu();
         String funname=(String)lvSee.getItemAtPosition(position);
         function_name=(String)lvSee.getItemAtPosition(position);
-        Log.e("onitemclick",funname);
+        Log.e("onitemclick", funname);
         actionBar.setTitle(function_name);
         new loadfunction().execute();
     }
@@ -213,7 +215,9 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         protected void onPostExecute(String s) {
            super.onPostExecute(s);
             tvHeaderFile.setText(hea);
-            //tvHeaderFile.setText(header);
+           svMain = (ScrollView)findViewById(R.id.svMain);
+           svMain.fullScroll(ScrollView.FOCUS_UP);
+           Log.e("focus","set");
             tvSyntax.setText(synt);
             tvReturns.setText(ret);
             tvParameters.setText(par);
@@ -242,8 +246,9 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
                    return view;
                }
            };
-           lvSee.setPadding(-11,-3,0,0);
+           lvSee.setPadding(-11, -3, 0, 0);
            lvSee.setAdapter(adapter);
+
            //lvSee.setAdapter(new ArrayAdapter<String>(DetailsActivity.this, android.R.layout.simple_list_item_1, SimilarFunList));
            setListViewHeightBasedOnChildren(lvSee);
            lvSee.setOnItemClickListener(DetailsActivity.this);
