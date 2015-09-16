@@ -48,7 +48,7 @@ import java.util.Set;
  */
 public class DetailsActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
-    TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc;
+    TextView tvHeaderFile,tvSyntax,tvReturns,tvParameters,tvDesc,tvHeader;
     ScrollView svMain;
     String function_name,header,synt,desc,par,ret,hea;
     boolean isFavorite=false;
@@ -73,6 +73,7 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         tvHeaderFile= (TextView) findViewById(R.id.tvHeaderFile);
         tvSyntax= (TextView) findViewById(R.id.tvSyntax);
         tvReturns= (TextView) findViewById(R.id.tvReturns);
+        tvHeader= (TextView) findViewById(R.id.tvHeader);
         tvParameters= (TextView) findViewById(R.id.tvParameters);
         tvDesc= (TextView) findViewById(R.id.tvDesc);
         lvSee= (ListView) findViewById(R.id.lvSee);
@@ -176,6 +177,11 @@ public class DetailsActivity extends ActionBarActivity implements AdapterView.On
         Log.e("onitemclick", funname);
         actionBar.setTitle(function_name);
         new loadfunction().execute();
+        svMain = (ScrollView)findViewById(R.id.svMain);
+        svMain.fullScroll(ScrollView.FOCUS_UP);
+        tvHeader.setFocusable(true);
+        tvHeaderFile.setFocusableInTouchMode(true);
+
     }
 
     public class loadfunction extends AsyncTask<Void,Integer,String>{
