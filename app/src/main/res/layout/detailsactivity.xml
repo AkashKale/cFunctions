@@ -23,7 +23,7 @@
             android:id="@+id/tvHeaderFile"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="gfgf"
+            android:text="..."
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:id="@+id/tvSyntax"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="gfgf"
+            android:text="..."
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:id="@+id/tvParameters"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="gfgf"
+            android:text="..."
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:id="@+id/tvReturns"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="gfgf"
+            android:text="..."
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:id="@+id/tvDesc"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="gfgf"
+            android:text="..."
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <TextView
             style="@style/detailsActivityTextViewTitle"
