@@ -170,6 +170,7 @@ public class NavigationDrawerFragment extends Fragment {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("favflag", "1");
                 editor.commit();
+                mDrawerLayout.closeDrawers();
                 startActivity(intent);
 
             }

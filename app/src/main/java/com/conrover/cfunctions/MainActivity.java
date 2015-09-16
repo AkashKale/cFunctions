@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
                 b.putString("header", "Nothing");
                 b.putString("function_name", function_name);
                 intent.putExtras(b);
+                finish();
                 startActivity(intent);
             }
         }
