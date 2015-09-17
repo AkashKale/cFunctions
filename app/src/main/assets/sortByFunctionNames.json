@@ -251,7 +251,7 @@
           "fun": "log10"
         },
         {
-          "fun": "longjump"
+          "fun": "longjmp"
         }
       ]
     },
